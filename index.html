@@ -2493,5 +2493,101 @@ dots5.forEach((d,i)=>d.onclick=()=>o5ManualMove(i));
 })();
 </script>
 
+
+
+<!-- ACADEMIC EDGE CAROUSEL VISIBILITY REPAIR: keeps the existing design, only guarantees the existing carousel cards render. -->
+<style id="ae-carousel-visibility-repair">
+.ae-showcase .o5-stage > .o5-side,
+.ae-showcase .o5-stage > .o5-center{
+  display:block !important;
+  visibility:visible !important;
+  position:absolute !important;
+  top:8px !important;
+  left:50% !important;
+  width:250px !important;
+  height:505px !important;
+  margin-left:-125px !important;
+}
+.ae-showcase .o5-stage > .slot-left{transform:translate3d(-320px,42px,0) rotate(-7deg) scale(.82) !important;opacity:.48 !important;z-index:2 !important}
+.ae-showcase .o5-stage > .slot-center{transform:translate3d(0,0,0) rotate(1deg) scale(1) !important;opacity:1 !important;z-index:4 !important}
+.ae-showcase .o5-stage > .slot-right{transform:translate3d(320px,42px,0) rotate(7deg) scale(.82) !important;opacity:.48 !important;z-index:3 !important}
+.ae-showcase .o5-stage > .slot-incoming{transform:translate3d(640px,42px,0) rotate(7deg) scale(.72) !important;opacity:0 !important;z-index:1 !important}
+.ae-showcase .o5-stage > .o5-side .ae-phone,
+.ae-showcase .o5-stage > .o5-center .ae-phone{width:100% !important;height:100% !important;display:block !important}
+.ae-showcase .o5-stage > .o5-side .ae-screen,
+.ae-showcase .o5-stage > .o5-center .ae-screen{display:block !important;width:100% !important;height:100% !important;object-fit:cover !important;object-position:top !important;visibility:visible !important;opacity:1 !important}
+@media(max-width:760px){
+ .ae-showcase .o5-stage > .o5-side,.ae-showcase .o5-stage > .o5-center{width:190px !important;height:388px !important;margin-left:-95px !important;top:0 !important}
+ .ae-showcase .o5-stage > .slot-left{transform:translate3d(-190px,28px,0) rotate(-6deg) scale(.8) !important}
+ .ae-showcase .o5-stage > .slot-center{transform:translate3d(0,0,0) rotate(1deg) scale(1) !important}
+ .ae-showcase .o5-stage > .slot-right{transform:translate3d(190px,28px,0) rotate(6deg) scale(.8) !important}
+ .ae-showcase .o5-stage > .slot-incoming{transform:translate3d(380px,28px,0) rotate(6deg) scale(.7) !important}
+}
+</style>
+<script id="ae-carousel-visibility-repair-js">
+(function(){
+  const stage=document.querySelector('.ae-showcase .o5-stage');
+  if(!stage)return;
+  const cards=[...stage.querySelectorAll(':scope > .o5-side, :scope > .o5-center')];
+  if(cards.length!==4)return;
+  const data=[
+    ['home.jpg','Home','Your academic command center.'],
+    ['attendance.jpg','Attendance','See your overall attendance at a glance.'],
+    ['mark-attendance.jpg',"Mark Today's Attendance",'Mark each scheduled lecture for today.'],
+    ['subject-details.jpg','Subject Details','Track subject-wise attendance and trends.'],
+    ['subject-details-history.jpg','Attendance History','Review insights and manage previous attendance.'],
+    ['notes.jpg','Notes','Keep every subject and study material organized.'],
+    ['subject-materials.jpg','Subject Materials','Open units, notes, PDFs and assignments in context.'],
+    ['timetable.jpg','Timetable','Know what class is next and where it happens.'],
+    ['calendar.jpg','Academic Calendar','Keep academic dates and important events together.'],
+    ['academic-hub.jpg','Academic Hub','Turn your academic tools and daily focus into one workflow.'],
+    ['aeri-ai.jpg','Aeri AI','Ask, summarize, generate and study with your AI companion.'],
+    ['profile.jpg','Profile','Your student space, settings and personal tools.']
+  ];
+  let index=0,busy=false;
+  const dots=[...document.querySelectorAll('.ae-showcase .o5-dot')];
+  const bySlot={left:cards.find(x=>x.classList.contains('left')),center:cards.find(x=>x.classList.contains('o5-center')),right:cards.find(x=>x.classList.contains('right')),incoming:cards.find(x=>x.classList.contains('incoming'))};
+  function img(card,i){const el=card&&card.querySelector('.ae-screen');if(el)el.src=data[(i+12)%12][0];}
+  function update(){dots.forEach((d,i)=>d.classList.toggle('active',i===index));}
+  function render(dir){
+    if(busy)return; busy=true;
+    const next=(index+(dir==='prev'?-1:1)+12)%12;
+    stage.classList.remove('flow-next','flow-prev'); void stage.offsetWidth; stage.classList.add(dir==='prev'?'flow-prev':'flow-next');
+    setTimeout(function(){
+      const left=stage.querySelector('.slot-left'),center=stage.querySelector('.slot-center'),right=stage.querySelector('.slot-right'),incoming=stage.querySelector('.slot-incoming');
+      if(!left||!center||!right||!incoming){busy=false;return;}
+      if(dir==='next'){
+        left.className='o5-side incoming slot-incoming';
+        center.className='o5-side left slot-left';
+        right.className='o5-center slot-center';
+        incoming.className='o5-side right slot-right';
+        index=next; img(left,(index+2)%12);
+      }else{
+        incoming.className='o5-side left slot-left';
+        right.className='o5-center slot-center';
+        center.className='o5-side right slot-right';
+        left.className='o5-side incoming slot-incoming';
+        index=next; img(left,(index-2+12)%12);
+      }
+      update();
+      requestAnimationFrame(()=>{stage.classList.remove('flow-next','flow-prev');busy=false;});
+    },820);
+  }
+  // Guarantee the first frame is visible even if an earlier carousel script failed.
+  cards[0].className='o5-side left slot-left';
+  cards[1].className='o5-center slot-center';
+  cards[2].className='o5-side right slot-right';
+  cards[3].className='o5-side incoming slot-incoming';
+  img(cards[0],11);img(cards[1],0);img(cards[2],1);img(cards[3],2);update();
+  const prev=stage.querySelector('.o5-prev'),next=stage.querySelector('.o5-next');
+  if(prev)prev.onclick=()=>render('prev');
+  if(next)next.onclick=()=>render('next');
+  dots.forEach((d,i)=>d.onclick=()=>{if(i===index)return; const forward=(i-index+12)%12; render(forward<=6?'next':'prev');});
+  let startX=0;
+  stage.addEventListener('touchstart',e=>startX=e.changedTouches[0].clientX,{passive:true});
+  stage.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>45)render(dx<0?'next':'prev')},{passive:true});
+})();
+</script>
+
 </body>
 </html>
