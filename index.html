@@ -1755,6 +1755,75 @@ button{font:inherit}
 }
 </style>
 
+
+<style id="mobile-final-navbar-carousel-position">
+/* ===== MOBILE FINAL: keep the main navigation visible + vertically center the phone ===== */
+@media(max-width:760px){
+  /* Keep the primary navigation visible on mobile. */
+  .nav-links{
+    display:flex !important;
+    align-items:center;
+    gap:7px;
+    flex:1 1 auto;
+    min-width:0;
+    margin:0 8px;
+    overflow:hidden;
+  }
+  .nav-links a{
+    flex:0 0 auto;
+    font-size:10px !important;
+    padding:6px 5px !important;
+    white-space:nowrap;
+  }
+  /* Keep the most useful three links in the compact mobile bar. */
+  .nav-links a:nth-child(4),
+  .nav-links a:nth-child(5){display:none !important;}
+  .navbar .nav-btn{
+    flex:0 0 auto;
+    padding:10px 10px !important;
+    font-size:10px !important;
+    white-space:nowrap;
+  }
+
+  /* Center the phone vertically instead of pinning it to the top of the stage. */
+  .ae-showcase .o5-stage{
+    height:500px !important;
+    min-height:500px !important;
+  }
+  .ae-showcase .o5-stage > .o5-side,
+  .ae-showcase .o5-stage > .o5-center{
+    top:50% !important;
+  }
+  .ae-showcase .o5-stage > .slot-center{
+    transform:translate3d(0,-50%,0) rotate(1deg) scale(1) !important;
+  }
+  .ae-showcase .o5-stage.flow-next > .slot-center{
+    transform:translate3d(-190px,calc(-50% + 28px),0) rotate(-6deg) scale(.8) !important;
+  }
+  .ae-showcase .o5-stage.flow-prev > .slot-center{
+    transform:translate3d(190px,calc(-50% + 28px),0) rotate(6deg) scale(.8) !important;
+  }
+  .ae-showcase .o5-stage > .slot-left,
+  .ae-showcase .o5-stage > .slot-right,
+  .ae-showcase .o5-stage > .slot-incoming{
+    top:50% !important;
+  }
+
+  /* Keep the phone itself fully inside the showcase. */
+  .ae-showcase .o5-stage > .o5-center .ae-phone{
+    width:190px !important;
+    height:388px !important;
+  }
+}
+@media(max-width:390px){
+  .ae-showcase .o5-stage{height:480px !important;min-height:480px !important;}
+  .ae-showcase .o5-stage > .o5-center .ae-phone{
+    width:178px !important;
+    height:363px !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
