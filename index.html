@@ -1733,6 +1733,28 @@ button{font:inherit}
   .ae-showcase .o5-stage>.o5-center .ae-phone{will-change:transform,opacity;}
 }
 </style>
+
+<style id="manual-mobile-carousel">
+@media(max-width:760px){
+  .ae-showcase .o5-stage{
+    width:100%;
+    overflow:hidden;
+    touch-action:pan-y;
+  }
+  .ae-showcase .o5-stage > .slot-left,
+  .ae-showcase .o5-stage > .slot-right,
+  .ae-showcase .o5-stage > .slot-incoming{
+    pointer-events:none;
+  }
+  .ae-showcase .o5-stage > .slot-center{
+    pointer-events:auto;
+  }
+  .ae-showcase .o5-center .ae-phone{
+    max-width:190px;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -2139,65 +2161,6 @@ button{font:inherit}
 </script>
 
 <script>
-/* ================= 3D MOUSE INTERACTION ================= */
-const scene = document.getElementById("scene");
-const phone = document.getElementById("phone");
-const platform = document.getElementById("platform");
-
-scene.addEventListener("mousemove", (e) => {
-    const rect = scene.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - .5;
-    const y = (e.clientY - rect.top) / rect.height - .5;
-
-    phone.style.transform = `
-        translate(-50%,-50%)
-        rotateY(${x * -22 - 16}deg)
-        rotateX(${y * 12 + 7}deg)
-        rotateZ(${x * -5 - 4}deg)
-    `;
-
-    platform.style.transform = `
-        translate(-50%,-50%)
-        rotateX(${58 + y * 5}deg)
-        rotateZ(${-25 + x * 5}deg)
-    `;
-});
-
-scene.addEventListener("mouseleave", () => {
-    phone.style.transform = `
-        translate(-50%,-50%)
-        rotateY(-16deg)
-        rotateX(7deg)
-        rotateZ(-4deg)
-    `;
-    platform.style.transform = `
-        translate(-50%,-50%)
-        rotateX(58deg)
-        rotateZ(-25deg)
-    `;
-});
-
-/* ================= BUTTON MICRO INTERACTION ================= */
-document.querySelectorAll("button").forEach(button => {
-    button.addEventListener("mousedown", () => {
-        button.style.transform = "scale(.96)";
-    });
-    button.addEventListener("mouseup", () => {
-        button.style.transform = "";
-    });
-});
-
-/* ================= FAQ ACCORDION ================= */
-document.querySelectorAll(".faq-item").forEach(item => {
-    item.addEventListener("click", () => {
-        const isActive = item.classList.contains("active");
-        document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
-        if (!isActive) {
-            item.classList.add("active");
-        }
-    });
-});
-
 const aeData5={
   0:{img:"home.jpg",title:"Home",copy:"Your academic command center."},
   1:{img:"attendance.jpg",title:"Attendance",copy:"See your overall attendance at a glance."},
@@ -2213,271 +2176,136 @@ const aeData5={
   11:{img:"profile.jpg",title:"Profile",copy:"Your student space, settings and personal tools."}
 };
 let o5i=0;
+
 const stage5=document.querySelector('.o5-stage');
 const slotLeft=document.querySelector('.o5-side.left');
 const slotCenter=document.querySelector('.o5-center');
 const slotRight=document.querySelector('.o5-side.right');
 const slotIncoming=document.querySelector('.o5-side.incoming');
-const left5=slotLeft.querySelector('.ae-screen'),center5=slotCenter.querySelector('.ae-screen'),right5=slotRight.querySelector('.ae-screen'),incoming5=slotIncoming.querySelector('.ae-screen');
-const dots5=[...document.querySelectorAll('.o5-dot')];
-Object.values(aeData5).forEach(item=>{const img=new Image();img.src=item.img;});
-let o5Timer=null,o5Animating=false;
-function slotClass(el,kind){
-  el.classList.remove('left','right','incoming','slot-left','slot-center','slot-right','slot-incoming','o5-center');
-  if(kind==='left'){el.classList.add('o5-side','left','slot-left');}
-  if(kind==='center'){el.classList.add('o5-center','slot-center');}
-  if(kind==='right'){el.classList.add('o5-side','right','slot-right');}
-  if(kind==='incoming'){el.classList.add('o5-side','incoming','slot-incoming');}
-}
-function setImg(el,index){el.src=aeData5[(index+12)%12].img;}
-function updateDots(){dots5.forEach((d,i)=>d.classList.toggle('active',i===o5i));}
-function seedInitial(){
-  slotClass(slotLeft,'left');slotClass(slotCenter,'center');slotClass(slotRight,'right');slotClass(slotIncoming,'incoming');
-  setImg(left5,11);setImg(center5,0);setImg(right5,1);setImg(incoming5,2);updateDots();
-}
-function o5Render(direction='next'){
-  if(o5Animating) return;
 
-  o5Animating = true;
-  clearTimeout(o5Timer);
+if(stage5 && slotLeft && slotCenter && slotRight && slotIncoming){
+  const left5=slotLeft.querySelector('.ae-screen');
+  const center5=slotCenter.querySelector('.ae-screen');
+  const right5=slotRight.querySelector('.ae-screen');
+  const incoming5=slotIncoming.querySelector('.ae-screen');
+  const dots5=[...document.querySelectorAll('.o5-dot')];
 
-  const n = 12;
-  const oldIndex = o5i;
-  const nextIndex =
-    (oldIndex + (direction === 'prev' ? -1 : 1) + n) % n;
+  Object.values(aeData5).forEach(item=>{
+    const img=new Image();
+    img.src=item.img;
+  });
 
-  /* Start animation */
-  stage5.classList.remove('flow-next', 'flow-prev');
-  void stage5.offsetWidth;
+  let o5Animating=false;
 
-  stage5.classList.add(
-    direction === 'prev' ? 'flow-prev' : 'flow-next'
-  );
+  function slotClass(el,kind){
+    el.classList.remove(
+      'left','right','incoming','slot-left','slot-center',
+      'slot-right','slot-incoming','o5-center'
+    );
+    if(kind==='left') el.classList.add('o5-side','left','slot-left');
+    if(kind==='center') el.classList.add('o5-center','slot-center');
+    if(kind==='right') el.classList.add('o5-side','right','slot-right');
+    if(kind==='incoming') el.classList.add('o5-side','incoming','slot-incoming');
+  }
 
-  setTimeout(() => {
+  function setImg(el,index){
+    el.src=aeData5[(index+12)%12].img;
+  }
 
-    /*
-      IMPORTANT:
-      Get the cards by their CURRENT positions.
-      Do NOT use the original slotLeft/slotCenter/etc.
-    */
+  function updateDots(){
+    dots5.forEach((d,i)=>d.classList.toggle('active',i===o5i));
+  }
 
-    const currentLeft =
-      stage5.querySelector('.slot-left');
+  function seedInitial(){
+    slotClass(slotLeft,'left');
+    slotClass(slotCenter,'center');
+    slotClass(slotRight,'right');
+    slotClass(slotIncoming,'incoming');
 
-    const currentCenter =
-      stage5.querySelector('.slot-center');
+    setImg(left5,11);
+    setImg(center5,0);
+    setImg(right5,1);
+    setImg(incoming5,2);
+    updateDots();
+  }
 
-    const currentRight =
-      stage5.querySelector('.slot-right');
+  function o5Render(direction='next'){
+    if(o5Animating) return;
 
-    const currentIncoming =
-      stage5.querySelector('.slot-incoming');
+    o5Animating=true;
 
+    const n=12;
+    const nextIndex=(o5i+(direction==='prev'?-1:1)+n)%n;
 
-    /* Freeze before removing animation class */
-    [
-      currentLeft,
-      currentCenter,
-      currentRight,
-      currentIncoming
-    ].forEach(el => {
-      if(el) el.style.transition = 'none';
-    });
+    stage5.classList.remove('flow-next','flow-prev');
+    void stage5.offsetWidth;
+    stage5.classList.add(direction==='prev'?'flow-prev':'flow-next');
 
-    stage5.classList.remove('flow-next', 'flow-prev');
+    setTimeout(()=>{
+      const currentLeft=stage5.querySelector('.slot-left');
+      const currentCenter=stage5.querySelector('.slot-center');
+      const currentRight=stage5.querySelector('.slot-right');
+      const currentIncoming=stage5.querySelector('.slot-incoming');
 
-
-    if(direction === 'next'){
-
-      /*
-        RIGHT → CENTER
-        CENTER → LEFT
-        LEFT → OUT
-        INCOMING → RIGHT
-
-        Then the OUT card becomes the new INCOMING.
-      */
-
-      currentLeft.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentLeft.classList.add(
-        'o5-side',
-        'incoming',
-        'slot-incoming'
-      );
-
-      currentCenter.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentCenter.classList.add(
-        'o5-side',
-        'left',
-        'slot-left'
-      );
-
-      currentRight.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentRight.classList.add(
-        'o5-center',
-        'slot-center'
-      );
-
-      currentIncoming.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentIncoming.classList.add(
-        'o5-side',
-        'right',
-        'slot-right'
-      );
-
-      o5i = nextIndex;
-
-      /*
-        The card that just went OUT is now waiting
-        on the far right. Give it the next screen.
-      */
-      setImg(
-        currentLeft.querySelector('.ae-screen'),
-        (o5i + 2) % n
-      );
-
-    }else{
-
-      /*
-        LEFT → CENTER
-        CENTER → RIGHT
-        RIGHT → INCOMING
-        INCOMING → LEFT
-      */
-
-      currentIncoming.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentIncoming.classList.add(
-        'o5-side',
-        'left',
-        'slot-left'
-      );
-
-      currentRight.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentRight.classList.add(
-        'o5-center',
-        'slot-center'
-      );
-
-      currentCenter.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentCenter.classList.add(
-        'o5-side',
-        'right',
-        'slot-right'
-      );
-
-      currentLeft.classList.remove(
-        'left','right','incoming',
-        'slot-left','slot-center',
-        'slot-right','slot-incoming',
-        'o5-center'
-      );
-      currentLeft.classList.add(
-        'o5-side',
-        'incoming',
-        'slot-incoming'
-      );
-
-      o5i = nextIndex;
-
-      setImg(
-        currentLeft.querySelector('.ae-screen'),
-        (o5i - 2 + n) % n
-      );
-    }
-
-
-    /*
-      Force browser to commit the new positions
-      before transitions are restored.
-    */
-
-    [
-      currentLeft,
-      currentCenter,
-      currentRight,
-      currentIncoming
-    ].forEach(el => {
-      if(el) void el.offsetWidth;
-    });
-
-
-    requestAnimationFrame(() => {
-
-      [
-        currentLeft,
-        currentCenter,
-        currentRight,
-        currentIncoming
-      ].forEach(el => {
-        if(el) el.style.transition = '';
+      [currentLeft,currentCenter,currentRight,currentIncoming].forEach(el=>{
+        if(el) el.style.transition='none';
       });
 
-      updateDots();
-      o5Animating = false;
-    });
+      stage5.classList.remove('flow-next','flow-prev');
 
-  }, 820);
-}
-seedInitial();
+      if(direction==='next'){
+        currentLeft.className='o5-side incoming slot-incoming';
+        currentCenter.className='o5-side left slot-left';
+        currentRight.className='o5-center slot-center';
+        currentIncoming.className='o5-side right slot-right';
 
-let o5Interval=null,o5Started=false,o5Visible=false;
-function scheduleO5(delay=5200){
-  clearTimeout(o5Interval);if(!o5Visible)return;
-  o5Interval=setTimeout(()=>{if(!o5Visible)return;o5Render('next');scheduleO5(5200);},delay);
-}
-const o5Observer=new IntersectionObserver((entries)=>{
-  const entry=entries[0];o5Visible=entry.isIntersecting;
-  if(o5Visible&&!o5Started){o5Started=true;scheduleO5(11000);}
-  else if(o5Visible)scheduleO5(5200);
-  else clearTimeout(o5Interval);
-},{threshold:0.35});
-o5Observer.observe(stage5);
+        o5i=nextIndex;
+        setImg(currentLeft.querySelector('.ae-screen'),(o5i+2)%n);
+      }else{
+        currentIncoming.className='o5-side left slot-left';
+        currentRight.className='o5-center slot-center';
+        currentCenter.className='o5-side right slot-right';
+        currentLeft.className='o5-side incoming slot-incoming';
 
-function o5ManualMove(index){
-  const n=12,target=(index+n)%n;if(o5Animating||target===o5i)return;
-  const forward=(target-o5i+n)%n;
-  const direction=forward===1?'next':forward===n-1?'prev':'next';
-  o5Render(direction);if(o5Visible)scheduleO5(5200);
+        o5i=nextIndex;
+        setImg(currentLeft.querySelector('.ae-screen'),(o5i-2+n)%n);
+      }
+
+      [currentLeft,currentCenter,currentRight,currentIncoming].forEach(el=>{
+        if(el) void el.offsetWidth;
+      });
+
+      requestAnimationFrame(()=>{
+        [currentLeft,currentCenter,currentRight,currentIncoming].forEach(el=>{
+          if(el) el.style.transition='';
+        });
+        updateDots();
+        o5Animating=false;
+      });
+    },820);
+  }
+
+  function o5ManualMove(index){
+    const n=12;
+    const target=(index+n)%n;
+    if(o5Animating || target===o5i) return;
+
+    const forward=(target-o5i+n)%n;
+    const direction=forward===n-1?'prev':'next';
+
+    // For dots, move one screen at a time so a tap never jumps multiple cards.
+    o5Render(direction);
+  }
+
+  seedInitial();
+
+  document.querySelector('.o5-prev')?.addEventListener('click',()=>o5Render('prev'));
+  document.querySelector('.o5-next')?.addEventListener('click',()=>o5Render('next'));
+  dots5.forEach((d,i)=>d.addEventListener('click',()=>o5ManualMove(i)));
+
+  // NO AUTOPLAY:
+  // The carousel changes only by arrow/dot click or a deliberate finger swipe.
 }
-document.querySelector('.o5-prev').onclick=()=>o5Render('prev');
-document.querySelector('.o5-next').onclick=()=>o5Render('next');
-dots5.forEach((d,i)=>d.onclick=()=>o5ManualMove(i));
 </script>
 
 
@@ -2510,5 +2338,65 @@ dots5.forEach((d,i)=>d.onclick=()=>o5ManualMove(i));
 })();
 </script>
 
+<script>
+(function(){
+  const stage=document.querySelector('.o5-stage');
+  if(!stage)return;
+
+  let startX=0;
+  let startY=0;
+  let tracking=false;
+  let swipeLocked=false;
+
+  stage.addEventListener('touchstart',e=>{
+    if(!e.touches || e.touches.length!==1)return;
+    const t=e.touches[0];
+    startX=t.clientX;
+    startY=t.clientY;
+    tracking=true;
+    swipeLocked=false;
+  },{passive:true});
+
+  stage.addEventListener('touchmove',e=>{
+    if(!tracking || swipeLocked)return;
+
+    const t=e.touches[0];
+    const dx=t.clientX-startX;
+    const dy=t.clientY-startY;
+
+    // Ignore vertical scrolling gestures.
+    if(Math.abs(dy)>Math.abs(dx)+8){
+      tracking=false;
+      return;
+    }
+
+    // Once a horizontal swipe is strong enough, trigger exactly ONE slide.
+    if(Math.abs(dx)>=60){
+      swipeLocked=true;
+      tracking=false;
+
+      const button=stage.querySelector(dx<0?'.o5-next':'.o5-prev');
+      if(button)button.click();
+
+      // Prevent the same finger gesture from firing again.
+      setTimeout(()=>{swipeLocked=false;},900);
+    }
+  },{passive:true});
+
+  stage.addEventListener('touchend',()=>{
+    tracking=false;
+  },{passive:true});
+
+  stage.addEventListener('touchcancel',()=>{
+    tracking=false;
+    swipeLocked=false;
+  },{passive:true});
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft')stage.querySelector('.o5-prev')?.click();
+    if(e.key==='ArrowRight')stage.querySelector('.o5-next')?.click();
+  });
+})();
+</script>
 </body>
 </html>
