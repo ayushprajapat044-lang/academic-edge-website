@@ -833,32 +833,113 @@ body{
     border-radius:16px;
     padding:22px 26px;
     cursor:pointer;
-    transition:.2s;
+    overflow:hidden;
+    transition:
+        border-color .35s ease,
+        box-shadow .35s ease,
+        transform .35s cubic-bezier(.22,1,.36,1);
 }
 
 .faq-item:hover{
     border-color:#cbd7f0;
+    transform:translateY(-2px);
+}
+
+.faq-item.active{
+    border-color:rgba(40,104,238,.28);
+    box-shadow:0 14px 35px rgba(25,65,140,.08);
 }
 
 .faq-question{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    gap:18px;
     font-family:"Manrope";
     font-size:17px;
     font-weight:700;
 }
 
+.faq-question > span:first-child{
+    transition:color .3s ease;
+}
+
+.faq-question > span:last-child{
+    flex:0 0 auto;
+    width:30px;
+    height:30px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:#edf3ff;
+    color:#2868ee;
+    font-size:20px;
+    font-weight:500;
+    line-height:1;
+    transform:rotate(0deg);
+    transition:
+        transform .45s cubic-bezier(.22,1,.36,1),
+        background .3s ease,
+        color .3s ease;
+}
+
 .faq-answer{
     color:#65728a;
     font-size:15px;
-    line-height:1.6;
-    margin-top:12px;
-    display:none;
+    line-height:1.65;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    margin-top:0;
+    padding-right:42px;
+    transform:translateY(-6px);
+    transition:
+        max-height .5s cubic-bezier(.22,1,.36,1),
+        opacity .35s ease,
+        margin-top .4s cubic-bezier(.22,1,.36,1),
+        transform .4s cubic-bezier(.22,1,.36,1);
+}
+
+.faq-item.active .faq-question > span:first-child{
+    color:#2868ee;
+}
+
+.faq-item.active .faq-question > span:last-child{
+    transform:rotate(45deg);
+    background:#2868ee;
+    color:white;
 }
 
 .faq-item.active .faq-answer{
-    display:block;
+    max-height:220px;
+    opacity:1;
+    margin-top:12px;
+    transform:translateY(0);
+}
+
+@media(max-width:760px){
+    .faq-item{
+        padding:20px 18px;
+        border-radius:18px;
+    }
+
+    .faq-question{
+        font-size:14px;
+        line-height:1.4;
+        gap:12px;
+    }
+
+    .faq-question > span:last-child{
+        width:28px;
+        height:28px;
+        font-size:19px;
+    }
+
+    .faq-answer{
+        font-size:14px;
+        line-height:1.6;
+        padding-right:36px;
+    }
 }
 
 /* ================= UPGRADED CTA BANNER ================= */
