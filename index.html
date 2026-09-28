@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Academic Edge — Your Academic Life, Elevated</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"DM Sans",sans-serif;
+    background:#f5f8ff;
+    color:#071126;
+    overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(1180px,calc(100% - 40px));
+    height:68px;
+    padding:0 10px 0 22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:rgba(255,255,255,.78);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.8);
+    border-radius:22px;
+
+    box-shadow:
+        0 20px 60px rgba(25,65,140,.10),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    z-index:100;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:7px; /* pehle 11px tha */
+    font-family:"Manrope";
+    font-weight:800;
+    font-size:18px;
+    letter-spacing:-0.7px;
+    text-decoration:none;
+    color:#071126;
+}
+
+.logo span{
+    color:#2768ed;
+    margin-left:-2px;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#071126;
+    box-shadow:0 8px 20px rgba(35,100,245,.22);
+}
+
+.logo-mark img{
+    width:80%;
+    height:80%;
+    display:block;
+    object-fit:cover;
+}
+
+.nav-links{
+    display:flex;
+    gap:34px;
+    align-items:center;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#68738a;
+    font-size:14px;
+    font-weight:600;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#2165ee;
+}
+
+.nav-btn{
+    border:none;
+    background:#0b1428;
+    color:white;
+
+    padding:14px 21px;
+    border-radius:15px;
+
+    font-weight:700;
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(5,15,35,.18);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+
+    padding:150px 7vw 80px;
+}
+
+.glow{
+    position:absolute;
+    width:650px;
+    height:650px;
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(58,122,255,.23),
+            rgba(58,122,255,0) 70%
+        );
+
+    filter:blur(20px);
+}
+
+.glow.one{
+    top:-220px;
+    right:-100px;
+}
+
+.glow.two{
+    bottom:-350px;
+    left:-180px;
+}
+
+.grid{
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(55,100,180,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(55,100,180,.045) 1px,transparent 1px);
+
+    background-size:55px 55px;
+
+    mask-image:linear-gradient(
+        to bottom,
+        black,
+        transparent 85%
+    );
+}
+
+.hero-inner{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    max-width:1350px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns: .92fr 1.08fr;
+    align-items:center;
+    gap:50px;
+}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:100px;
+
+    background:#e8f0ff;
+    color:#2768ed;
+
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+
+    margin-bottom:25px;
+}
+
+.eyebrow-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#2768ed;
+    box-shadow:0 0 0 5px rgba(39,104,237,.1);
+}
+
+.hero h1{
+    font-family:"Manrope";
+    font-size:clamp(55px,6vw,88px);
+    line-height:.93;
+    letter-spacing:-5px;
+    max-width:720px;
+}
+
+.hero h1 .blue{
+    color:#2868ee;
+}
+
+.hero-copy{
+    margin-top:28px;
+    max-width:570px;
+    color:#65728a;
+    font-size:18px;
+    line-height:1.65;
+}
+
+.hero-actions{
+    margin-top:35px;
+    display:flex;
+    gap:13px;
+    align-items:center;
+}
+
+.primary{
+    border:none;
+    background:#2467ee;
+    color:white;
+
+    padding:17px 25px;
+    border-radius:16px;
+
+    font-weight:700;
+    font-size:15px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 14px 35px rgba(36,103,238,.25);
+
+    transition:.3s;
+}
+
+.primary:hover{
+    transform:translateY(-4px);
+    box-shadow:
+        0 20px 40px rgba(36,103,238,.32);
+}
+
+.secondary{
+    padding:16px 23px;
+    border-radius:16px;
+    border:1px solid #dce4f2;
+    background:rgba(255,255,255,.65);
+    color:#1d2940;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.secondary:hover{
+    background:white;
+    transform:translateY(-3px);
+}
+
+.stats{
+    margin-top:55px;
+    display:flex;
+    gap:35px;
+}
+
+.stat{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.stat strong{
+    font-family:"Manrope";
+    font-size:23px;
+}
+
+.stat span{
+    font-size:12px;
+    color:#8993a6;
+}
+
+/* ================= 3D SCENE ================= */
+
+.scene{
+    position:relative;
+    height:650px;
+    perspective:1400px;
+}
+
+.platform{
+    position:absolute;
+    width:580px;
+    height:580px;
+    left:50%;
+    top:50%;
+    transform:
+        translate(-50%,-50%)
+        rotateX(58deg)
+        rotateZ(-25deg);
+    border-radius:70px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.95),
+            rgba(224,235,255,.8)
+        );
+    border:1px solid rgba(255,255,255,.9);
+    box-shadow:
+        35px 45px 90px rgba(40,72,130,.18),
+        inset 0 1px 0 white;
+    transition:transform .2s ease-out;
+}
+
+.platform::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:70px;
+    background-image:
+        linear-gradient(rgba(37,102,235,.09) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(37,102,235,.09) 1px,transparent 1px);
+    background-size:35px 35px;
+}
+
+.phone{
+    position:absolute;
+    width:245px;
+    height:490px;
+    left:50%;
+    top:50%;
+    transform:
+        translate(-50%,-50%)
+        rotateY(-16deg)
+        rotateX(7deg)
+        rotateZ(-4deg);
+    border-radius:40px;
+    background:#071126;
+    padding:9px;
+    box-shadow:
+        30px 40px 70px rgba(8,25,65,.28),
+        -10px -10px 30px rgba(255,255,255,.7);
+    transition:transform .2s ease-out;
+    z-index:5;
+}
+
+.phone-screen{
+    width:100%;
+    height:100%;
+    border-radius:33px;
+    background:#f7f9fd;
+    overflow:hidden;
+    position:relative;
+}
+
+.phone-top{
+    height:50px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.dynamic-island{
+    width:85px;
+    height:23px;
+    background:#061022;
+    border-radius:30px;
+}
+
+.app{
+    padding:17px;
+}
+
+.app-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.avatar{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#17243c,#3979f6);
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:11px;
+    font-weight:800;
+}
+
+.bell{
+    width:31px;
+    height:31px;
+    border-radius:50%;
+    background:#edf3ff;
+    display:grid;
+    place-items:center;
+    color:#2868ee;
+}
+
+.search{
+    height:42px;
+    border-radius:13px;
+    background:white;
+    border:1px solid #e9edf5;
+    display:flex;
+    align-items:center;
+    padding:0 12px;
+    color:#a1a9b7;
+    font-size:10px;
+    margin-bottom:13px;
+}
+
+.continue{
+    padding:17px;
+    border-radius:19px;
+    color:white;
+    background:linear-gradient(135deg,#3981ff,#1754db);
+    box-shadow:0 12px 25px rgba(35,101,236,.23);
+    margin-bottom:15px;
+}
+
+.continue small{
+    opacity:.75;
+    font-size:8px;
+    letter-spacing:.8px;
+}
+
+.continue h3{
+    font-size:15px;
+    margin-top:8px;
+}
+
+.progress{
+    height:5px;
+    border-radius:10px;
+    background:rgba(255,255,255,.25);
+    margin:15px 0 8px;
+}
+
+.progress div{
+    width:65%;
+    height:100%;
+    border-radius:10px;
+    background:white;
+}
+
+.continue-bottom{
+    display:flex;
+    justify-content:space-between;
+    font-size:8px;
+    opacity:.8;
+}
+
+.priority{
+    background:white;
+    border-radius:19px;
+    padding:15px;
+    border:1px solid #edf0f5;
+}
+
+.priority-title{
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:11px;
+}
+
+.task{
+    padding:10px;
+    border-radius:12px;
+    margin-top:7px;
+    font-size:9px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.task.red{ background:#fff0f0; }
+.task.green{ background:#effaf2; }
+.task.blue{ background:#edf3ff; }
+
+.float-card{
+    position:absolute;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.9);
+    border-radius:20px;
+    padding:16px 18px;
+    box-shadow:0 25px 60px rgba(37,73,130,.16);
+    z-index:10;
+    transition:transform .2s ease-out;
+}
+
+.float-card small{
+    color:#8994a9;
+    font-size:10px;
+}
+
+.float-card strong{
+    display:block;
+    font-family:"Manrope";
+    margin-top:4px;
+    font-size:16px;
+}
+
+.float-icon{
+    width:34px;
+    height:34px;
+    display:grid;
+    place-items:center;
+    border-radius:11px;
+    margin-bottom:8px;
+    background:#eaf1ff;
+    color:#2868ee;
+    font-weight:800;
+}
+
+.attendance{
+    top:95px;
+    right:0;
+    animation:float1 5s ease-in-out infinite;
+}
+
+.timetable{
+    bottom:100px;
+    left:5px;
+    animation:float2 5.5s ease-in-out infinite;
+}
+
+.ai{
+    bottom:45px;
+    right:25px;
+    animation:float3 6s ease-in-out infinite;
+}
+
+@keyframes float1{
+    0%,100%{transform:translateY(0) rotate(2deg)}
+    50%{transform:translateY(-13px) rotate(-1deg)}
+}
+
+@keyframes float2{
+    0%,100%{transform:translateY(0) rotate(-2deg)}
+    50%{transform:translateY(12px) rotate(1deg)}
+}
+
+@keyframes float3{
+    0%,100%{transform:translateY(0) rotate(2deg)}
+    50%{transform:translateY(-10px) rotate(-2deg)}
+}
+
+.orbit{
+    position:absolute;
+    width:510px;
+    height:510px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border:1px dashed rgba(39,104,237,.25);
+    border-radius:50%;
+    animation:spin 18s linear infinite;
+}
+
+.orbit-dot{
+    position:absolute;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#2b6cf0;
+    box-shadow:0 0 0 8px rgba(43,108,240,.12);
+    top:20px;
+    left:50%;
+}
+
+@keyframes spin{
+    to{
+        transform:
+            translate(-50%,-50%)
+            rotate(360deg);
+    }
+}
+
+.bottom-strip{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:55px;
+    color:#7a8599;
+    font-size:12px;
+    font-weight:600;
+}
+
+.bottom-strip span{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.check{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#e4efff;
+    color:#2868ee;
+    display:grid;
+    place-items:center;
+    font-size:10px;
+}
+
+/* ================= ADDITIONAL SECTIONS ================= */
+
+.section-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:100px 24px;
+}
+
+.section-header{
+    text-align:center;
+    max-width:650px;
+    margin:0 auto 70px;
+}
+
+.section-header h2{
+    font-family:"Manrope";
+    font-size:clamp(36px, 4vw, 48px);
+    letter-spacing:-2px;
+    margin-top:15px;
+}
+
+.section-header p{
+    color:#65728a;
+    font-size:16px;
+    margin-top:15px;
+    line-height:1.6;
+}
+
+/* Features Grid */
+
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(350px, 1fr));
+    gap:28px;
+}
+
+.feature-card{
+    background:white;
+    border:1px solid #e4e9f2;
+    border-radius:24px;
+    padding:35px;
+    transition:.3s;
+    box-shadow:0 10px 30px rgba(25,65,140,.03);
+}
+
+.feature-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 45px rgba(25,65,140,.08);
+    border-color:#cbd7f0;
+}
+
+.feature-icon{
+    width:55px;
+    height:55px;
+    border-radius:16px;
+    background:#eef4ff;
+    color:#2467ee;
+    display:grid;
+    place-items:center;
+    font-size:22px;
+    font-weight:800;
+    margin-bottom:22px;
+}
+
+.feature-card h3{
+    font-family:"Manrope";
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.feature-card p{
+    color:#65728a;
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* How It Works Steps */
+
+.steps-container{
+    background:white;
+    border-radius:32px;
+    border:1px solid #e4e9f2;
+    padding:80px 50px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:50px;
+    box-shadow:0 20px 50px rgba(25,65,140,.04);
+}
+
+.step{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.step-number{
+    font-family:"Manrope";
+    font-size:36px;
+    font-weight:800;
+    color:#2467ee;
+    opacity:.3;
+}
+
+.step h3{
+    font-family:"Manrope";
+    font-size:20px;
+}
+
+.step p{
+    color:#65728a;
+    font-size:15px;
+    line-height:1.6;
+}
+
+/* Testimonials Section */
+
+.reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+    gap:25px;
+}
+
+.review-card{
+    background:white;
+    border:1px solid #e4e9f2;
+    border-radius:22px;
+    padding:30px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow:0 10px 30px rgba(25,65,140,.03);
+}
+
+.review-text{
+    color:#334155;
+    font-size:15px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.review-author{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.review-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:#2467ee;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-weight:700;
+    font-size:14px;
+}
+
+.review-info strong{
+    display:block;
+    font-family:"Manrope";
+    font-size:15px;
+}
+
+.review-info span{
+    color:#8993a6;
+    font-size:13px;
+}
+
+/* FAQ Accordion */
+
+.faq-list{
+    max-width:800px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.faq-item{
+    background:white;
+    border:1px solid #e4e9f2;
+    border-radius:16px;
+    padding:22px 26px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.faq-item:hover{
+    border-color:#cbd7f0;
+}
+
+.faq-question{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:"Manrope";
+    font-size:17px;
+    font-weight:700;
+}
+
+.faq-answer{
+    color:#65728a;
+    font-size:15px;
+    line-height:1.6;
+    margin-top:12px;
+    display:none;
+}
+
+.faq-item.active .faq-answer{
+    display:block;
+}
+
+/* ================= UPGRADED CTA BANNER ================= */
+
+.cta-banner{
+    max-width:1200px;
+    margin:0 auto 100px;
+    background:linear-gradient(135deg, #1850e0, #0a33a0);
+    border-radius:36px;
+    padding:85px 40px;
+    text-align:center;
+    color:white;
+    box-shadow:0 30px 70px rgba(24, 80, 224, 0.28);
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(255, 255, 255, 0.15);
+}
+
+.cta-glow{
+    position:absolute;
+    width:450px;
+    height:450px;
+    background:radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+    top:-50%;
+    left:50%;
+    transform:translateX(-50%);
+    pointer-events:none;
+}
+
+.cta-banner h2{
+    font-family:"Manrope";
+    font-size:clamp(34px, 4.5vw, 50px);
+    letter-spacing:-2px;
+    margin-bottom:18px;
+}
+
+.cta-banner p{
+    font-size:18px;
+    opacity:0.9;
+    max-width:580px;
+    margin:0 auto 32px;
+    line-height:1.6;
+}
+
+.cta-action-group{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.cta-banner .primary{
+    background:white;
+    color:#1850e0;
+    font-size:15px;
+    padding:16px 28px;
+    font-weight:700;
+    border-radius:16px;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    transition:.3s;
+}
+
+.cta-banner .primary:hover{
+    transform:translateY(-3px);
+    background:#f7f9ff;
+}
+
+.secondary-white{
+    background:rgba(255, 255, 255, 0.12);
+    color:white;
+    border:1px solid rgba(255, 255, 255, 0.25);
+    padding:16px 26px;
+    border-radius:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.secondary-white:hover{
+    background:rgba(255, 255, 255, 0.22);
+    transform:translateY(-3px);
+}
+
+.cta-badges{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    font-size:13px;
+    opacity:0.85;
+    flex-wrap:wrap;
+}
+
+.footer-logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    text-decoration:none;
+}
+
+.footer-logo .logo-mark{
+    width:38px;
+    height:38px;
+    padding:6px;
+    background:#050d1a;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.footer-logo .logo-mark img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    display:block;
+}
+
+.footer-logo .brand-name{
+    color:white;
+    font-family:"Manrope",sans-serif;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-0.7px;
+    word-spacing: 5px;
+}
+
+.footer-logo .brand-name > span{
+    color:#2868ee;
+    margin-left:0;
+}
+/* ================= UPGRADED FOOTER ================= */
+
+
+footer{
+    background:#050d1a;
+    color:white;
+    padding:70px 24px 40px;
+    border-top:1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:25px;
+    border-bottom:1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom:40px;
+}
+
+.footer-links{
+    display:flex;
+    gap:28px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#94a3b8;
+    text-decoration:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.footer-links a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    max-width:1200px;
+    margin:30px auto 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.copyright{
+    color:#64748b;
+    font-size:13px;
+}
+
+.footer-socials{
+    display:flex;
+    gap:20px;
+}
+
+.footer-socials a{
+    color:#64748b;
+    text-decoration:none;
+    font-size:13px;
+    transition:.2s;
+}
+
+.footer-socials a:hover{
+    color:#2467ee;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+    .nav-links{
+        display:none;
+    }
+    .hero{
+        padding-top:130px;
+    }
+    .hero-inner{
+        grid-template-columns:1fr;
+    }
+    .hero h1{
+        font-size:65px;
+    }
+    .scene{
+        height:580px;
+    }
+}
+
+@media(max-width:600px){
+    .navbar{
+        width:calc(100% - 24px);
+        top:12px;
+    }
+    .nav-btn{
+        padding:11px 15px;
+        font-size:12px;
+    }
+    .hero{
+        padding:120px 20px 70px;
+    }
+    .hero h1{
+        font-size:50px;
+        letter-spacing:-3px;
+    }
+    .hero-copy{
+        font-size:15px;
+    }
+    .stats{
+        gap:20px;
+    }
+    .scene{
+        height:500px;
+        transform:scale(.85);
+        transform-origin:center;
+        margin-top:-30px;
+    }
+    .platform{
+        width:450px;
+        height:450px;
+    }
+    .phone{
+        width:210px;
+        height:425px;
+    }
+    .float-card{
+        transform:scale(.85);
+    }
+    .attendance{
+        right:-15px;
+    }
+    .timetable{
+        left:-20px;
+    }
+    .bottom-strip{
+        display:none;
+    }
+}
+
+/* ===== ACADEMIC EDGE COMBINED APP SHOWCASE ===== */
+.ae-showcase{padding:110px 24px;background:#eef4ff;position:relative;overflow:hidden}
+.ae-showcase:before{content:"";position:absolute;width:620px;height:620px;left:-220px;top:50px;background:radial-gradient(circle,rgba(50,111,240,.13),transparent 68%);filter:blur(20px);pointer-events:none}
+.ae-wrap{max-width:1200px;margin:auto;position:relative;z-index:1}
+.ae-head{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:52px}
+.ae-kicker{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#2868ee;margin-bottom:12px}
+.ae-head h2{font:800 clamp(38px,4.8vw,62px)/.98 Manrope,sans-serif;letter-spacing:-3px;max-width:720px}
+.ae-head h2 span{color:#2868ee}
+.ae-head p{max-width:390px;color:#69768d;line-height:1.65;font-size:14px}
+.ae-panel{background:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.9);border-radius:34px;box-shadow:0 30px 80px rgba(31,67,130,.12);overflow:hidden}
+.ae-tabs button{font:inherit;border:0;cursor:pointer}
+.ae-screen{width:100%;display:block}
+.ae-phone{background:#071126;padding:8px;border-radius:40px;box-shadow:25px 35px 70px rgba(7,28,70,.25);position:relative;transition:.45s cubic-bezier(.2,.8,.2,1)}
+.ae-phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:33px}
+.ae-notch{position:absolute;z-index:2;top:15px;left:50%;transform:translateX(-50%);width:80px;height:21px;background:#071126;border-radius:20px}
+.ae-changing{opacity:.2;transform:scale(.97) rotate(-2deg)!important}
+@media(max-width:760px){.ae-showcase{padding:80px 18px}.ae-head{display:block}.ae-head p{margin-top:18px}.ae-head h2{letter-spacing:-2px}}
+
+.o5-panel{min-height:690px;background:linear-gradient(145deg,#f8fbff,#e2ebfa);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}.o5-stage{width:min(980px,100%);height:690px;position:relative;display:flex;align-items:center;justify-content:center}.o5-side{position:absolute;width:190px;height:390px;opacity:.45;filter:blur(.1px);transition:.5s}.o5-side.left{left:50px;transform:translateX(-25%) rotate(-8deg) scale(.85)}.o5-side.right{right:50px;transform:translateX(25%) rotate(8deg) scale(.85)}.o5-side .ae-phone{width:190px;height:390px}.o5-center{position:relative;z-index:4;text-align:center}.o5-center .ae-phone{width:285px;height:575px;transform:rotate(1deg)}.o5-arrow{position:absolute;z-index:8;width:44px;height:44px;border-radius:50%;border:1px solid #d5deed;background:white;box-shadow:0 12px 30px rgba(25,65,140,.13);cursor:pointer;font-size:20px;color:#2868ee}.o5-prev{left:20px}.o5-next{right:20px}.o5-bottom{position:absolute;bottom:28px;left:0;right:0;text-align:center}.o5-bottom b{font:800 15px Manrope}.o5-bottom span{display:block;color:#7e8a9d;font-size:11px;margin-top:5px}.o5-dots{display:flex;justify-content:center;gap:6px;margin-top:12px}.o5-dot{width:6px;height:6px;border:0;border-radius:50%;background:#c6d1e2;padding:0}.o5-dot.active{background:#2868ee;width:20px;border-radius:10px}
+@media(max-width:760px){.o5-panel,.o5-stage{min-height:590px;height:590px}.o5-center .ae-phone{width:235px;height:480px}.o5-side{display:none}.o5-prev{left:14px}.o5-next{right:14px}}
+
+
+</style>
+
+<style id="academic-edge-v2">
+
+/* ===== HERO PHONE: FULL HOME SCREEN IMAGE ===== */
+.phone-screen{
+    position:relative;
+    overflow:hidden;
+}
+
+.phone-top{
+    position:absolute !important;
+    top:0;
+    left:0;
+    right:0;
+    height:50px !important;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+    pointer-events:none;
+}
+
+.app{
+    width:100% !important;
+    height:100% !important;
+    padding:0 !important;
+    margin:0 !important;
+    overflow:hidden;
+}
+
+.hero-home-screen{
+    width:100% !important;
+    height:100% !important;
+    display:block !important;
+    object-fit:fill !important;
+    object-position:center !important;
+}
+
+/* =========================================================
+   ACADEMIC EDGE — CINEMATIC V2 POLISH
+   Mobile-first refinements layered over the original Option 5.
+   ========================================================= */
+   
+:root{
+  --ae-blue:#2868ee;
+  --ae-ink:#071126;
+  --ae-muted:#65728a;
+  --ae-line:#dce5f2;
+  --ae-soft:#f3f7ff;
+}
+html{
+    scroll-behavior:smooth;
+    scroll-padding-top: -10px;
+}
+body{min-width:320px}
+button,a{-webkit-tap-highlight-color:transparent}
+button{font:inherit}
+.navbar{transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
+.mobile-menu-btn{
+  display:none;border:0;background:#edf3ff;color:#1e5fe8;
+  width:42px;height:42px;border-radius:13px;font-size:20px;
+  cursor:pointer;align-items:center;justify-content:center
+}
+.mobile-menu{
+  display:none;position:fixed;top:91px;left:12px;right:12px;z-index:99;
+  padding:10px;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);
+  border:1px solid #e2e9f4;border-radius:20px;box-shadow:0 22px 55px rgba(15,38,76,.15)
+}
+.mobile-menu.open{display:grid}
+.mobile-menu a{padding:15px 14px;text-decoration:none;color:#17243c;font-weight:700;border-radius:12px}
+.mobile-menu a:active{background:#edf4ff}
+.hero{isolation:isolate}
+.hero-content{position:relative;z-index:3}
+.scene{will-change:transform}
+.bottom-strip{overflow:hidden}
+.bottom-strip span{white-space:nowrap}
+.ae-showcase{scroll-margin-top:100px}
+.ae-panel{border-radius:32px}
+.o5-stage{touch-action:pan-y}
+.o5-arrow{touch-action:manipulation}
+.ae-phone{will-change:transform}
+.ae-screen{user-select:none;-webkit-user-drag:none}
+.feature-card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.feature-card:hover{transform:translateY(-5px)}
+.ae-showcase{scroll-margin-top:100px}
+.cta-banner{overflow:hidden}
+@media (min-width:761px){
+  .ae-showcase{padding-top:125px;padding-bottom:125px}
+  .ae-head h2{letter-spacing:-2.6px}
+}
+@media (max-width:1000px){
+  .navbar{width:calc(100% - 28px)}
+  .nav-links{display:none}
+  .mobile-menu-btn{display:flex}
+  .hero{padding-top:125px}
+}
+@media (max-width:760px){
+  .navbar{height:60px;top:10px;padding:0 8px 0 12px;border-radius:18px}
+  .logo{font-size:15px;gap:8px}
+  .logo-mark{width:34px;height:34px;border-radius:10px;font-size:12px}
+  .nav-btn{padding:10px 12px;border-radius:12px;font-size:12px}
+  .mobile-menu-btn{width:38px;height:38px;border-radius:11px;font-size:18px}
+  .hero{min-height:auto;padding:112px 18px 55px}
+  .hero-inner{gap:18px}
+  .hero h1{font-size:clamp(43px,12vw,58px);line-height:.94;letter-spacing:-3.5px}
+  .hero-copy{font-size:15px;line-height:1.6;margin-top:20px}
+  .hero-actions{margin-top:24px;display:grid;grid-template-columns:1fr;gap:10px}
+  .primary,.secondary{width:100%;padding:14px 17px}
+  .stats{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+  .stat{padding:12px 8px;background:rgba(255,255,255,.65);border:1px solid rgba(220,228,242,.8);border-radius:14px}
+  .stat strong{font-size:17px}
+  .stat span{font-size:9px;line-height:1.25}
+  .scene{height:420px;transform:none;margin:0 -16px}
+  .platform{width:370px;height:370px;border-radius:48px}
+  .phone{width:185px;height:370px;border-radius:31px;padding:7px}
+  .phone-screen{border-radius:25px}
+  .phone-top{height:38px}
+  .dynamic-island{width:65px;height:18px}
+  .app{padding:12px}
+  .float-card{transform:scale(.74);transform-origin:center}
+  .attendance{right:-2px}
+  .timetable{left:-3px}
+  .ai{right:4px}
+  .bottom-strip{display:none}
+  .ae-showcase{padding:72px 14px}
+  .ae-head{display:block;margin-bottom:28px}
+  .ae-head h2{font-size:clamp(34px,9vw,46px);line-height:1;letter-spacing:-1.8px}
+  .ae-head p{font-size:14px;line-height:1.6;margin-top:14px}
+  .ae-panel{border-radius:24px}
+  .o5-panel,.o5-stage{min-height:560px;height:560px}
+  .o5-center .ae-phone{width:205px;height:418px}
+  .o5-side{display:none}
+  .o5-prev{left:8px}.o5-next{right:8px}
+  .o5-arrow{width:42px;height:42px}
+  .o5-bottom{bottom:16px;left:16px;right:16px}
+  .o5-bottom b{font-size:15px}
+  .o5-bottom span{font-size:12px}
+  .o5-dots{margin-top:11px}
+  .section-container{padding-left:18px;padding-right:18px}
+  .section-header h2{font-size:clamp(34px,9vw,46px);line-height:1.02;letter-spacing:-1.8px}
+  .section-header p{font-size:14px;line-height:1.65}
+  .features-grid{grid-template-columns:1fr!important;gap:13px}
+  .feature-card{padding:22px}
+  .feature-card p{font-size:14px;line-height:1.6}
+  .ae-story-grid{grid-template-columns:1fr!important}
+  .ae-story-visual{order:-1}
+  .ae-story-visual img{max-height:520px;object-fit:contain}
+  .ae-steps{grid-template-columns:1fr!important}
+  .ae-step{min-height:0!important}
+  .reviews-grid{grid-template-columns:1fr!important}
+  .faq-list{width:100%}
+  .faq-question{font-size:14px;padding:18px 0}
+  .cta-banner{padding:45px 22px!important;border-radius:26px!important}
+  .cta-banner h2{font-size:clamp(35px,9vw,48px)!important;line-height:1!important}
+  .cta-banner p{font-size:14px!important;line-height:1.6}
+  .cta-action-group{display:grid!important;grid-template-columns:1fr;gap:10px}
+  .cta-action-group button{width:100%}
+  .cta-badges{display:grid!important;grid-template-columns:1fr;gap:8px!important}
+  footer{padding:50px 20px 25px!important}
+  .footer-inner,.footer-bottom{display:grid!important;grid-template-columns:1fr;gap:24px!important}
+  .footer-links{display:grid!important;grid-template-columns:1fr 1fr;gap:14px!important}
+}
+@media (max-width:390px){
+  .scene{height:390px}
+  .platform{width:330px;height:330px}
+  .phone{width:170px;height:340px}
+  .float-card{transform:scale(.65)}
+  .o5-panel,.o5-stage{min-height:520px;height:520px}
+  .o5-center .ae-phone{width:190px;height:388px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
+
+
+<style id="active-nav-only">
+.nav-links a{position:relative}
+.nav-links a.active{color:#2868ee}
+.nav-links a.active::after{
+  content:"";
+  position:absolute;
+  left:13px;right:13px;bottom:5px;
+  height:2px;border-radius:99px;
+  background:#2868ee;
+}
+@media(max-width:1000px){
+  .nav-links{display:flex}
+}
+@media(max-width:760px){
+  .nav-links{display:none}
+}
+</style>
+
+
+<style id="compact-navbar">
+/* On scroll: keep ONLY the page navigation links visible. */
+.navbar{
+  transition:
+    width .38s cubic-bezier(.22,1,.36,1),
+    height .38s cubic-bezier(.22,1,.36,1),
+    top .38s cubic-bezier(.22,1,.36,1),
+    padding .38s cubic-bezier(.22,1,.36,1),
+    border-radius .38s cubic-bezier(.22,1,.36,1),
+    box-shadow .38s ease,
+    background .38s ease;
+}
+/* ================= SMOOTH COMPACT NAV ================= */
+.navbar{
+  transition:
+    width .62s cubic-bezier(.22,1,.36,1),
+    height .62s cubic-bezier(.22,1,.36,1),
+    top .62s cubic-bezier(.22,1,.36,1),
+    padding .62s cubic-bezier(.22,1,.36,1),
+    border-radius .62s cubic-bezier(.22,1,.36,1),
+    box-shadow .62s cubic-bezier(.22,1,.36,1),
+    background .62s ease;
+}
+
+.navbar .logo,
+.navbar .nav-links,
+.navbar .nav-btn{
+  transition:
+    opacity .34s ease,
+    transform .62s cubic-bezier(.22,1,.36,1),
+    font-size .62s cubic-bezier(.22,1,.36,1),
+    padding .62s cubic-bezier(.22,1,.36,1);
+}
+
+.navbar .nav-links{
+  transition-property:gap, transform, opacity;
+}
+
+.navbar.compact{
+  width:min(840px,calc(100% - 36px));
+  height:48px;
+  top:10px;
+  padding:0 8px 0 12px;
+  border-radius:999px;
+  box-shadow:0 14px 42px rgba(25,65,140,.16), inset 0 1px 0 rgba(255,255,255,.95);
+  background:rgba(255,255,255,.90);
+}
+
+.navbar.compact .logo{
+  opacity:1;
+  transform:scale(.82);
+  transform-origin:left center;
+  width:auto;
+  min-width:0;
+  margin:0 4px 0 0;
+  overflow:visible;
+  pointer-events:auto;
+}
+
+.navbar.compact .nav-links{
+  gap:2px;
+  transform:translateX(0);
+}
+
+.navbar.compact .nav-links a{
+  padding:8px 10px;
+  font-size:11px;
+  border-radius:999px;
+  transition:color .25s ease, background .3s ease, padding .62s cubic-bezier(.22,1,.36,1), font-size .62s cubic-bezier(.22,1,.36,1);
+}
+
+.navbar.compact .nav-btn{
+  padding:9px 14px;
+  border-radius:999px;
+  font-size:11px;
+  transform:scale(.98);
+}
+
+.navbar.compact .nav-links a.active{
+  color:#2165ee;
+  background:rgba(39,104,237,.10);
+}
+
+@media(max-width:760px){
+  .navbar{
+    width:calc(100% - 24px);
+  }
+  .navbar.compact{
+    width:calc(100% - 20px);
+    height:44px;
+    top:8px;
+    padding:0 6px 0 8px;
+  }
+  .navbar.compact .nav-links{
+    gap:1px;
+  }
+  .navbar.compact .nav-links a{
+    padding:8px 7px;
+    font-size:10px;
+  }
+  .navbar.compact .nav-btn{
+    padding:9px 10px;
+    font-size:10px;
+    white-space:nowrap;
+  }
+}
+</style>
+
+
+<style id="showcase-polish-v3">
+/* ===== APP SHOWCASE: FEATURES FIRST + COMPACT + SMOOTH ===== */
+.ae-showcase{
+  padding:72px 24px;
+  scroll-margin-top:100px;
+}
+.ae-head{
+  margin-bottom:30px;
+  gap:36px;
+}
+.ae-head h2{
+  font-size:clamp(34px,4vw,52px);
+  letter-spacing:-2.4px;
+}
+.ae-head p{font-size:13px;max-width:360px}
+.ae-panel{border-radius:28px}
+.o5-panel,.o5-stage{min-height:555px;height:555px}
+.o5-side{width:165px;height:340px;transition:opacity .48s cubic-bezier(.2,.8,.2,1),transform .58s cubic-bezier(.2,.8,.2,1),filter .48s ease}
+.o5-side.left{left:70px;transform:translateX(-18%) rotate(-7deg) scale(.82)}
+.o5-side.right{right:70px;transform:translateX(18%) rotate(7deg) scale(.82)}
+.o5-side .ae-phone{width:165px;height:340px}
+.o5-center .ae-phone{
+  width:250px;
+  height:505px;
+  transform:translateY(-42px) rotate(1deg);
+  transition:transform .58s cubic-bezier(.2,.8,.2,1),opacity .4s ease,box-shadow .58s ease;
+}
+.o5-bottom{
+  bottom:8px;
+  z-index:10;
+  transition:opacity .35s ease,transform .42s cubic-bezier(.2,.8,.2,1);
+}
+.o5-bottom b,.o5-bottom span,.o5-dots{position:relative;z-index:11}
+.o5-dots{margin-top:9px;transform:none}
+.o5-dot{position:relative;z-index:12;flex:0 0 auto}
+.o5-bottom b{font-size:14px}
+.o5-bottom span{font-size:11px}
+.o5-dots{margin-top:9px;transform:none}
+.o5-arrow{transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.o5-arrow:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(25,65,140,.18)}
+.o5-stage.is-changing .o5-center .ae-phone{opacity:.05;transform:scale(.965) translateY(-34px) rotate(0deg)}
+.o5-stage.is-changing .o5-side{opacity:.08;filter:blur(1px)}
+.o5-stage.is-changing .o5-bottom{opacity:0;transform:translateY(7px)}
+.o5-stage .ae-screen{transition:opacity .25s ease}
+@media(max-width:760px){
+  .ae-showcase{padding:58px 14px}
+  .ae-head{margin-bottom:22px}
+  .ae-head h2{font-size:clamp(32px,8.5vw,44px);letter-spacing:-1.7px}
+  .ae-head p{font-size:13px;margin-top:12px}
+  .ae-panel{border-radius:22px}
+  .o5-panel,.o5-stage{min-height:500px;height:500px}
+  .o5-center .ae-phone{width:190px;height:388px;transform:translateY(-34px) rotate(1deg)}
+  .o5-bottom{bottom:8px}
+}
+@media(max-width:390px){
+  .o5-panel,.o5-stage{min-height:470px;height:470px}
+  .o5-center .ae-phone{width:178px;height:363px;transform:translateY(-30px) rotate(1deg)}
+}
+</style>
+
+
+<style id="showcase-text-dots-fix">
+/* Keep the phone stage independent from the title/copy/dots below it. */
+.ae-showcase .ae-panel{overflow:visible;}
+.ae-showcase .o5-panel{overflow:hidden;}
+.ae-showcase .o5-stage{overflow:visible;}
+.ae-showcase .o5-bottom{
+  position:relative;
+  left:auto; right:auto; bottom:auto;
+  margin-top:14px;
+  text-align:center;
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+  transition:none;
+}
+
+
+.ae-showcase .o5-copy-wrap{
+  min-height:36px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+}
+.ae-showcase .o5-bottom b,
+.ae-showcase .o5-bottom span{
+  transition:opacity .28s ease, transform .28s ease;
+}
+.ae-showcase .o5-bottom b{display:block;}
+.ae-showcase .o5-bottom span{display:block;}
+/* Only the text fades during a screen change. */
+.ae-showcase .o5-stage.is-changing ~ .o5-bottom .o5-copy-wrap b,
+.ae-showcase .o5-stage.is-changing ~ .o5-bottom .o5-copy-wrap span{
+  opacity:0;
+  transform:translateY(5px);
+}
+/* Dots stay fully visible and never fade. */
+.ae-showcase .o5-dots{
+  opacity:1 !important;
+  visibility:visible !important;
+  transform:none !important;
+  margin-top:8px;
+  position:relative;
+  z-index:30;
+}
+.ae-showcase .o5-dot{opacity:1 !important;visibility:visible !important;}
+@media(max-width:760px){
+  .ae-showcase .o5-bottom{margin-top:10px;}
+  .ae-showcase .o5-copy-wrap{min-height:34px;}
+}
+</style>
+
+<style id="showcase-true-carousel-flow">
+/* CONTINUOUS 4-CARD DECK: right -> center -> left -> out, while a fresh card enters from the far right. */
+.ae-showcase .o5-panel{overflow:visible;position:relative;}
+.ae-showcase .o5-stage{position:relative;height:520px;min-height:520px;overflow:visible;perspective:none;}
+.ae-showcase .o5-stage > .o5-side,
+.ae-showcase .o5-stage > .o5-center{
+  position:absolute;
+  top:8px;
+  left:50%;
+  width:250px;
+  height:505px;
+  margin-left:-125px;
+
+  transition:
+    transform .82s cubic-bezier(.22,.78,.2,1),
+    opacity .82s cubic-bezier(.22,.78,.2,1);
+
+  will-change:transform;
+}
+/* Resting deck: one card left, one center, one right, one waiting behind the right edge. */
+.ae-showcase .o5-stage > .slot-left{transform:translate3d(-320px,42px,0) rotate(-7deg) scale(.82);opacity:.48;z-index:2;}
+.ae-showcase .o5-stage > .slot-center{transform:translate3d(0,0,0) rotate(1deg) scale(1);opacity:1;z-index:4;}
+.ae-showcase .o5-stage > .slot-right{transform:translate3d(320px,42px,0) rotate(7deg) scale(.82);opacity:.48;z-index:3;}
+.ae-showcase .o5-stage > .slot-incoming{transform:translate3d(640px,42px,0) rotate(7deg) scale(.72);opacity:0;z-index:1;}
+.ae-showcase .o5-stage > .o5-side .ae-phone,
+.ae-showcase .o5-stage > .o5-center .ae-phone{width:100%;height:100%;}
+
+/* NEXT: old left exits, old center becomes left, old right becomes center, fresh incoming becomes right. */
+.ae-showcase .o5-stage.flow-next > .slot-left{
+  transform:translate3d(-640px,0,0) rotate(-7deg) scale(.72);
+  opacity:0;
+  z-index:1;
+
+  transition:
+    transform .82s cubic-bezier(.22,.78,.2,1),
+    opacity .16s ease-out;
+}
+.ae-showcase .o5-stage.flow-next > .slot-center{transform:translate3d(-320px,42px,0) rotate(-7deg) scale(.82);opacity:.48;z-index:2;}
+.ae-showcase .o5-stage.flow-next > .slot-right{transform:translate3d(0,0,0) rotate(1deg) scale(1);opacity:1;z-index:4;}
+.ae-showcase .o5-stage.flow-next > .slot-incoming{transform:translate3d(320px,42px,0) rotate(7deg) scale(.82);opacity:.48;z-index:3;}
+
+/* PREV mirrors the deck. */
+.ae-showcase .o5-stage.flow-prev > .slot-incoming{transform:translate3d(640px,42px,0) rotate(7deg) scale(.72);opacity:0;z-index:1;}
+.ae-showcase .o5-stage.flow-prev > .slot-right{transform:translate3d(320px,42px,0) rotate(7deg) scale(.82);opacity:.48;z-index:2;}
+.ae-showcase .o5-stage.flow-prev > .slot-center{transform:translate3d(320px,42px,0) rotate(7deg) scale(.82);opacity:.48;z-index:2;}
+.ae-showcase .o5-stage.flow-prev > .slot-left{transform:translate3d(0,0,0) rotate(-1deg) scale(1);opacity:1;z-index:4;}
+
+/* Dots stay fixed and never participate in the screen animation. */
+.ae-showcase .o5-bottom{position:absolute;left:0;right:0;bottom:2px;margin:0;z-index:20;pointer-events:auto;}
+.ae-showcase .o5-dots{display:flex;justify-content:center;align-items:center;gap:6px;margin:0;opacity:1!important;visibility:visible!important;transform:none!important;}
+.ae-showcase .o5-dot{opacity:1!important;visibility:visible!important;transition:width .25s ease,background .25s ease;}
+@media(max-width:760px){
+ .ae-showcase .o5-stage{height:430px;min-height:430px;}
+ .ae-showcase .o5-stage > .o5-side,.ae-showcase .o5-stage > .o5-center{width:190px;height:388px;margin-left:-95px;top:0;}
+ .ae-showcase .o5-stage > .slot-left{transform:translate3d(-190px,28px,0) rotate(-6deg) scale(.8);}
+ .ae-showcase .o5-stage > .slot-center{transform:translate3d(0,0,0) rotate(1deg) scale(1);}
+ .ae-showcase .o5-stage > .slot-right{transform:translate3d(190px,28px,0) rotate(6deg) scale(.8);}
+ .ae-showcase .o5-stage > .slot-incoming{transform:translate3d(380px,28px,0) rotate(6deg) scale(.7);}
+ .ae-showcase .o5-stage.flow-next > .slot-left{transform:translate3d(-380px,28px,0) rotate(-6deg) scale(.7);}
+ .ae-showcase .o5-stage.flow-next > .slot-center{transform:translate3d(-190px,28px,0) rotate(-6deg) scale(.8);}
+ .ae-showcase .o5-stage.flow-next > .slot-right{transform:translate3d(0,0,0) rotate(1deg) scale(1);}
+ .ae-showcase .o5-stage.flow-next > .slot-incoming{transform:translate3d(190px,28px,0) rotate(6deg) scale(.8);opacity:.48;}
+ .ae-showcase .o5-stage.flow-prev > .slot-incoming{transform:translate3d(380px,28px,0) rotate(6deg) scale(.7);}
+ .ae-showcase .o5-stage.flow-prev > .slot-right{transform:translate3d(190px,28px,0) rotate(6deg) scale(.8);}
+ .ae-showcase .o5-stage.flow-prev > .slot-center{transform:translate3d(190px,28px,0) rotate(6deg) scale(.8);}
+ .ae-showcase .o5-stage.flow-prev > .slot-left{transform:translate3d(0,0,0) rotate(-1deg) scale(1);}
+ .ae-showcase .o5-bottom{bottom:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="siteNav">
+    <a href="#top" class="logo" aria-label="Academic Edge home">
+        <div class="logo-mark">
+    <img src="assets/logo.png" alt="Academic Edge Logo">
+</div>
+        Academic <span>Edge</span>
+    </a>
+
+    <div class="nav-links" id="desktopNav">
+        <a href="#top" data-nav="top">Home</a>
+        <a href="#features" data-nav="features">Features</a>
+        <a href="#how-it-works" data-nav="how-it-works">How it works</a>
+        <a href="#reviews" data-nav="reviews">Reviews</a>
+        <a href="#faq" data-nav="faq">FAQ</a>
+    </div>
+
+    <button class="nav-btn">Get the App →</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#top">Home</a>
+  <a href="#features">Features</a>
+  <a href="#how-it-works">How it works</a>
+  <a href="#reviews">Reviews</a>
+  <a href="#faq">FAQ</a>
+</div>
+
+
+<!-- HERO -->
+<section class="hero" id="top">
+    <div class="grid"></div>
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="hero-inner">
+        <!-- LEFT -->
+        <div class="hero-content">
+            <div class="eyebrow">
+                <span class="eyebrow-dot"></span>
+                Built for modern students
+            </div>
+
+            <h1>
+                Your college life.
+                <span class="blue">One edge</span>
+                ahead.
+            </h1>
+
+            <p class="hero-copy">
+                Academic Edge brings your timetable, attendance,
+                documents, deadlines and AI study tools together
+                in one beautifully simple student workspace.
+            </p>
+
+            <div class="hero-actions">
+                <button class="primary" type="button" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Explore Academic Edge →</button>
+                <button class="secondary" type="button" onclick="document.getElementById('closer-look').scrollIntoView({behavior:'smooth'})">See the app</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat">
+                    <strong>12+</strong>
+                    <span>Student tools</span>
+                </div>
+                <div class="stat">
+                    <strong>24/7</strong>
+                    <span>Academic access</span>
+                </div>
+                <div class="stat">
+                    <strong>1 app</strong>
+                    <span>Everything together</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT 3D SCENE -->
+        <div class="scene" id="scene">
+            <div class="orbit">
+                <div class="orbit-dot"></div>
+            </div>
+            <div class="platform" id="platform"></div>
+
+            <!-- PHONE -->
+            <div class="phone" id="phone">
+                <div class="phone-screen">
+                    <div class="phone-top">
+                        <div class="dynamic-island"></div>
+                    </div>
+                    <div class="app">
+    <img
+        src="assets/home screen.jpg"
+        alt="Academic Edge Home Screen"
+        class="hero-home-screen"
+    >
+</div>
+                </div>
+            </div>
+
+            <!-- FLOATING DATA -->
+            <div class="float-card attendance">
+                <div class="float-icon">↗</div>
+                <small>Attendance</small>
+                <strong>78.9%</strong>
+            </div>
+
+            <div class="float-card timetable">
+                <div class="float-icon">▦</div>
+                <small>Next class</small>
+                <strong>Operating Systems</strong>
+            </div>
+
+            <div class="float-card ai">
+                <div class="float-icon">✦</div>
+                <small>Aeri AI</small>
+                <strong>Ask anything</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-strip">
+        <span><i class="check">✓</i> Timetable</span>
+        <span><i class="check">✓</i> Attendance</span>
+        <span><i class="check">✓</i> Documents</span>
+        <span><i class="check">✓</i> Aeri AI</span>
+        <span><i class="check">✓</i> Academic Calendar</span>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section class="section-container" id="features">
+    <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Powerful features</div>
+        <h2>Everything you need to conquer your semester</h2>
+        <p>No more switching between 5 different university apps and messy notes. Academic Edge centralizes your complete academic life.</p>
+    </div>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">📅</div>
+            <h3>Smart Timetable</h3>
+            <p>Automatically sync your classes, rooms, and professors. Get reminders right before class starts so you're never late again.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Attendance Tracker</h3>
+            <p>Monitor your attendance percentages in real-time. Know exactly how many classes you can skip without dipping below requirements.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">✦</div>
+            <h3>Aeri AI Study Assistant</h3>
+            <p>Highlight syllabus sections, ask questions about your lecture PDFs, and generate instant summary notes on the go.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📂</div>
+            <h3>Document Hub</h3>
+            <p>Store all your lecture slides, notes, and e-books neatly organized by semester, subject, and unit.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⏰</div>
+            <h3>Priority Deadline Center</h3>
+            <p>Never miss an assignment. Intelligent sorting highlights what's due next so you can tackle high-impact tasks first.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Lightning Fast Sync</h3>
+            <p>Access your timetable and files seamlessly across your phone, tablet, and laptop with instant cloud sync.</p>
+        </div>
+    </div>
+</section>
+
+
+<section class="ae-showcase" id="closer-look"><div class="ae-wrap"><div class="ae-head"><div><div class="ae-kicker">A CLOSER LOOK</div><h2>Move through Academic Edge<br><span>without leaving the page.</span></h2></div><p></p></div><div class="ae-panel o5-panel"><div class="o5-stage"><button class="o5-arrow o5-prev">‹</button><div class="o5-side left"><div class="ae-phone"><div class="ae-notch"></div><img id="o5Left" class="ae-screen" src="assets/profile.jpg"></div></div><div class="o5-center"><div class="ae-phone"><div class="ae-notch"></div><img id="o5Img" class="ae-screen" src="assets/home.jpg"></div></div><div class="o5-side right"><div class="ae-phone"><div class="ae-notch"></div><img id="o5Right" class="ae-screen" src="assets/attendance.jpg"></div></div><div class="o5-side incoming"><div class="ae-phone"><div class="ae-notch"></div><img id="o5Incoming" class="ae-screen" src="assets/mark-attendance.jpg"></div></div><button class="o5-arrow o5-next">›</button></div></div><div class="o5-bottom"><div class="o5-dots"><button class="o5-dot active"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button><button class="o5-dot"></button></div></div></div></section>
+<!-- HOW IT WORKS -->
+<section class="section-container" id="how-it-works">
+    <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Simple setup</div>
+        <h2>Up and running in under 2 minutes</h2>
+        <p>Designed to save you time from day one with minimal configuration required.</p>
+    </div>
+
+    <div class="steps-container">
+        <div class="step">
+            <div class="step-number">01</div>
+            <h3>Import your schedule</h3>
+            <p>Upload your college PDF timetable or manually add your classes in seconds using our intuitive setup wizard.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">02</div>
+            <h3>Connect your materials</h3>
+            <p>Drop your course syllabus and study notes into the document hub to unlock AI-powered search and summaries.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">03</div>
+            <h3>Stay ahead effortlessly</h3>
+            <p>Let automated reminders, attendance tracking, and smart notifications guide your daily study workflow.</p>
+        </div>
+    </div>
+</section>
+
+<!-- REVIEWS SECTION -->
+<section class="section-container" id="reviews">
+    <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Loved by students</div>
+        <h2>What students are saying</h2>
+        <p>Join thousands of college students who transformed their academic routine.</p>
+    </div>
+
+    <div class="reviews-grid">
+        <div class="review-card">
+            <p class="review-text">"Academic Edge completely saved my semester. Being able to track attendance and pull up lecture summaries in one app is an absolute game-changer."</p>
+            <div class="review-author">
+                <div class="review-avatar">JD</div>
+                <div class="review-info">
+                    <strong>Jessica Davis</strong>
+                    <span>Computer Science, Junior</span>
+                </div>
+            </div>
+        </div>
+        <div class="review-card">
+            <p class="review-text">"The Aeri AI feature is unreal. It helps me prep for quizzes by turning my dense reading assignments into clear bullet-point takeaways."</p>
+            <div class="review-author">
+                <div class="review-avatar">MR</div>
+                <div class="review-info">
+                    <strong>Marcus Reynolds</strong>
+                    <span>Engineering, Sophomore</span>
+                </div>
+            </div>
+        </div>
+        <div class="review-card">
+            <p class="review-text">"Clean, lightning-fast, and distraction-free. It's the only productivity app I've used consistently throughout my entire college career."</p>
+            <div class="review-author">
+                <div class="review-avatar">SL</div>
+                <div class="review-info">
+                    <strong>Sophia Lin</strong>
+                    <span>Pre-Med, Senior</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section-container" id="faq">
+    <div class="section-header">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Got questions?</div>
+        <h2>Frequently asked questions</h2>
+        <p>Everything you need to know about Academic Edge.</p>
+    </div>
+
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-question"><span>Is Academic Edge free to use?</span> <span>+</span></div>
+            <div class="faq-answer">Yes! Academic Edge offers a robust free tier that includes your basic timetable, attendance tracking, and document storage. Premium features like advanced AI assistance are available on our student-friendly Pro plan.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><span>Can I import my university schedule automatically?</span> <span>+</span></div>
+            <div class="faq-answer">Absolutely. You can upload your PDF timetable or use our automated calendar import tools to populate your weekly schedule within seconds.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><span>How does the Aeri AI assistant work?</span> <span>+</span></div>
+            <div class="faq-answer">Aeri reads through your uploaded lecture notes and textbooks to provide contextual answers, summarize dense paragraphs, and help you study efficiently without leaving the app.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><span>Is my student data secure and private?</span> <span>+</span></div>
+            <div class="faq-answer">We take your privacy seriously. All documents and personal academic data are encrypted in transit and at rest. We never sell or share your information.</div>
+        </div>
+    </div>
+</section>
+
+<!-- UPGRADED CTA BANNER -->
+<section class="section-container">
+    <div class="cta-banner">
+        <div class="cta-glow"></div>
+        <div class="eyebrow" style="background: rgba(255,255,255,0.15); color: white; margin-bottom: 20px;">
+            <span class="eyebrow-dot" style="background: white; box-shadow: 0 0 0 5px rgba(255,255,255,0.2);"></span>
+            Start your semester right
+        </div>
+        <h2>Ready to get one edge ahead?</h2>
+        <p>Join thousands of students who transformed their routine. Download Academic Edge or get instant access on web.</p>
+        
+        <div class="cta-action-group">
+            <button class="primary" type="button" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Get Started for Free →</button>
+            <button class="secondary-white" type="button" onclick="document.getElementById('closer-look').scrollIntoView({behavior:'smooth'})">View Demo Video</button>
+        </div>
+        
+        <div class="cta-badges">
+            <span>✓ No credit card required</span>
+            <span>✓ Free forever tier</span>
+            <span>✓ Instant setup</span>
+        </div>
+    </div>
+</section>
+
+<!-- UPGRADED FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <a href="#" class="logo footer-logo" style="color:white;">
+    <div class="logo-mark">
+        <img src="assets/logo.png" alt="Academic Edge Logo">
+    </div>
+    <span class="brand-name">Academic <span>Edge</span></span>
+</a>
+        <div class="footer-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#faq">FAQ</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="copyright">
+            &copy; 2026 Academic Edge. All rights reserved.
+        </div>
+        <div class="footer-socials">
+            <a href="#">Twitter</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </div>
+</footer>
+
+
+
+<script id="active-nav-only-js">
+(function(){
+  const links=[...document.querySelectorAll('[data-nav]')];
+  const sections=['top','features','how-it-works','reviews','faq']
+    .map(id=>document.getElementById(id)).filter(Boolean);
+
+  function setActive(id){
+    links.forEach(link=>link.classList.toggle('active',link.dataset.nav===id));
+  }
+
+  const observer=new IntersectionObserver(entries=>{
+    const visible=entries
+      .filter(e=>e.isIntersecting)
+      .sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(visible) setActive(visible.target.id);
+  },{
+    rootMargin:'-28% 0px -58% 0px',
+    threshold:[0.05,0.2,0.5]
+  });
+
+  sections.forEach(section=>observer.observe(section));
+  setActive('top');
+
+  links.forEach(link=>{
+    link.addEventListener('click',()=>setActive(link.dataset.nav));
+  });
+
+  // No section active while the visitor is at the hero.
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY<250) setActive('top');
+  },{passive:true});
+})();
+</script>
+
+
+<script id="compact-navbar-js">
+(function(){
+  const nav=document.getElementById('siteNav');
+  if(!nav)return;
+  let compact=false;
+  let ticking=false;
+  function update(){
+    const next=window.scrollY>80;
+    if(next!==compact){
+      compact=next;
+      nav.classList.toggle('compact',compact);
+    }
+    ticking=false;
+  }
+  update();
+  window.addEventListener('scroll',()=>{
+    if(!ticking){
+      requestAnimationFrame(update);
+      ticking=true;
+    }
+  },{passive:true});
+})();
+</script>
+
+<script>
+(function(){
+  const btn=document.getElementById('mobileMenuBtn');
+  const menu=document.getElementById('mobileMenu');
+  if(!btn||!menu)return;
+  btn.addEventListener('click',()=>{
+    const open=menu.classList.toggle('open');
+    btn.textContent=open?'×':'☰';
+    btn.setAttribute('aria-expanded',open?'true':'false');
+  });
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+    menu.classList.remove('open'); btn.textContent='☰'; btn.setAttribute('aria-expanded','false');
+  }));
+})();
+</script>
+
+<script>
+/* ================= 3D MOUSE INTERACTION ================= */
+const scene = document.getElementById("scene");
+const phone = document.getElementById("phone");
+const platform = document.getElementById("platform");
+
+scene.addEventListener("mousemove", (e) => {
+    const rect = scene.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - .5;
+    const y = (e.clientY - rect.top) / rect.height - .5;
+
+    phone.style.transform = `
+        translate(-50%,-50%)
+        rotateY(${x * -22 - 16}deg)
+        rotateX(${y * 12 + 7}deg)
+        rotateZ(${x * -5 - 4}deg)
+    `;
+
+    platform.style.transform = `
+        translate(-50%,-50%)
+        rotateX(${58 + y * 5}deg)
+        rotateZ(${-25 + x * 5}deg)
+    `;
+});
+
+scene.addEventListener("mouseleave", () => {
+    phone.style.transform = `
+        translate(-50%,-50%)
+        rotateY(-16deg)
+        rotateX(7deg)
+        rotateZ(-4deg)
+    `;
+    platform.style.transform = `
+        translate(-50%,-50%)
+        rotateX(58deg)
+        rotateZ(-25deg)
+    `;
+});
+
+/* ================= BUTTON MICRO INTERACTION ================= */
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("mousedown", () => {
+        button.style.transform = "scale(.96)";
+    });
+    button.addEventListener("mouseup", () => {
+        button.style.transform = "";
+    });
+});
+
+/* ================= FAQ ACCORDION ================= */
+document.querySelectorAll(".faq-item").forEach(item => {
+    item.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
+        document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("active"));
+        if (!isActive) {
+            item.classList.add("active");
+        }
+    });
+});
+
+const aeData5={
+  0:{img:"assets/home.jpg",title:"Home",copy:"Your academic command center."},
+  1:{img:"assets/attendance.jpg",title:"Attendance",copy:"See your overall attendance at a glance."},
+  2:{img:"assets/mark-attendance.jpg",title:"Mark Today's Attendance",copy:"Mark each scheduled lecture for today."},
+  3:{img:"assets/subject-details.jpg",title:"Subject Details",copy:"Track subject-wise attendance and trends."},
+  4:{img:"assets/subject-details-history.jpg",title:"Attendance History",copy:"Review insights and manage previous attendance."},
+  5:{img:"assets/notes.jpg",title:"Notes",copy:"Keep every subject and study material organized."},
+  6:{img:"assets/subject-materials.jpg",title:"Subject Materials",copy:"Open units, notes, PDFs and assignments in context."},
+  7:{img:"assets/timetable.jpg",title:"Timetable",copy:"Know what class is next and where it happens."},
+  8:{img:"assets/calendar.jpg",title:"Academic Calendar",copy:"Keep academic dates and important events together."},
+  9:{img:"assets/academic-hub.jpg",title:"Academic Hub",copy:"Turn your academic tools and daily focus into one workflow."},
+  10:{img:"assets/aeri-ai.jpg",title:"Aeri AI",copy:"Ask, summarize, generate and study with your AI companion."},
+  11:{img:"assets/profile.jpg",title:"Profile",copy:"Your student space, settings and personal tools."}
+};
+let o5i=0;
+const stage5=document.querySelector('.o5-stage');
+const slotLeft=document.querySelector('.o5-side.left');
+const slotCenter=document.querySelector('.o5-center');
+const slotRight=document.querySelector('.o5-side.right');
+const slotIncoming=document.querySelector('.o5-side.incoming');
+const left5=slotLeft.querySelector('.ae-screen'),center5=slotCenter.querySelector('.ae-screen'),right5=slotRight.querySelector('.ae-screen'),incoming5=slotIncoming.querySelector('.ae-screen');
+const dots5=[...document.querySelectorAll('.o5-dot')];
+Object.values(aeData5).forEach(item=>{const img=new Image();img.src=item.img;});
+let o5Timer=null,o5Animating=false;
+function slotClass(el,kind){
+  el.classList.remove('left','right','incoming','slot-left','slot-center','slot-right','slot-incoming','o5-center');
+  if(kind==='left'){el.classList.add('o5-side','left','slot-left');}
+  if(kind==='center'){el.classList.add('o5-center','slot-center');}
+  if(kind==='right'){el.classList.add('o5-side','right','slot-right');}
+  if(kind==='incoming'){el.classList.add('o5-side','incoming','slot-incoming');}
+}
+function setImg(el,index){el.src=aeData5[(index+12)%12].img;}
+function updateDots(){dots5.forEach((d,i)=>d.classList.toggle('active',i===o5i));}
+function seedInitial(){
+  slotClass(slotLeft,'left');slotClass(slotCenter,'center');slotClass(slotRight,'right');slotClass(slotIncoming,'incoming');
+  setImg(left5,11);setImg(center5,0);setImg(right5,1);setImg(incoming5,2);updateDots();
+}
+function o5Render(direction='next'){
+  if(o5Animating) return;
+
+  o5Animating = true;
+  clearTimeout(o5Timer);
+
+  const n = 12;
+  const oldIndex = o5i;
+  const nextIndex =
+    (oldIndex + (direction === 'prev' ? -1 : 1) + n) % n;
+
+  /* Start animation */
+  stage5.classList.remove('flow-next', 'flow-prev');
+  void stage5.offsetWidth;
+
+  stage5.classList.add(
+    direction === 'prev' ? 'flow-prev' : 'flow-next'
+  );
+
+  setTimeout(() => {
+
+    /*
+      IMPORTANT:
+      Get the cards by their CURRENT positions.
+      Do NOT use the original slotLeft/slotCenter/etc.
+    */
+
+    const currentLeft =
+      stage5.querySelector('.slot-left');
+
+    const currentCenter =
+      stage5.querySelector('.slot-center');
+
+    const currentRight =
+      stage5.querySelector('.slot-right');
+
+    const currentIncoming =
+      stage5.querySelector('.slot-incoming');
+
+
+    /* Freeze before removing animation class */
+    [
+      currentLeft,
+      currentCenter,
+      currentRight,
+      currentIncoming
+    ].forEach(el => {
+      if(el) el.style.transition = 'none';
+    });
+
+    stage5.classList.remove('flow-next', 'flow-prev');
+
+
+    if(direction === 'next'){
+
+      /*
+        RIGHT → CENTER
+        CENTER → LEFT
+        LEFT → OUT
+        INCOMING → RIGHT
+
+        Then the OUT card becomes the new INCOMING.
+      */
+
+      currentLeft.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentLeft.classList.add(
+        'o5-side',
+        'incoming',
+        'slot-incoming'
+      );
+
+      currentCenter.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentCenter.classList.add(
+        'o5-side',
+        'left',
+        'slot-left'
+      );
+
+      currentRight.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentRight.classList.add(
+        'o5-center',
+        'slot-center'
+      );
+
+      currentIncoming.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentIncoming.classList.add(
+        'o5-side',
+        'right',
+        'slot-right'
+      );
+
+      o5i = nextIndex;
+
+      /*
+        The card that just went OUT is now waiting
+        on the far right. Give it the next screen.
+      */
+      setImg(
+        currentLeft.querySelector('.ae-screen'),
+        (o5i + 2) % n
+      );
+
+    }else{
+
+      /*
+        LEFT → CENTER
+        CENTER → RIGHT
+        RIGHT → INCOMING
+        INCOMING → LEFT
+      */
+
+      currentIncoming.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentIncoming.classList.add(
+        'o5-side',
+        'left',
+        'slot-left'
+      );
+
+      currentRight.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentRight.classList.add(
+        'o5-center',
+        'slot-center'
+      );
+
+      currentCenter.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentCenter.classList.add(
+        'o5-side',
+        'right',
+        'slot-right'
+      );
+
+      currentLeft.classList.remove(
+        'left','right','incoming',
+        'slot-left','slot-center',
+        'slot-right','slot-incoming',
+        'o5-center'
+      );
+      currentLeft.classList.add(
+        'o5-side',
+        'incoming',
+        'slot-incoming'
+      );
+
+      o5i = nextIndex;
+
+      setImg(
+        currentLeft.querySelector('.ae-screen'),
+        (o5i - 2 + n) % n
+      );
+    }
+
+
+    /*
+      Force browser to commit the new positions
+      before transitions are restored.
+    */
+
+    [
+      currentLeft,
+      currentCenter,
+      currentRight,
+      currentIncoming
+    ].forEach(el => {
+      if(el) void el.offsetWidth;
+    });
+
+
+    requestAnimationFrame(() => {
+
+      [
+        currentLeft,
+        currentCenter,
+        currentRight,
+        currentIncoming
+      ].forEach(el => {
+        if(el) el.style.transition = '';
+      });
+
+      updateDots();
+      o5Animating = false;
+    });
+
+  }, 820);
+}
+seedInitial();
+
+let o5Interval=null,o5Started=false,o5Visible=false;
+function scheduleO5(delay=5200){
+  clearTimeout(o5Interval);if(!o5Visible)return;
+  o5Interval=setTimeout(()=>{if(!o5Visible)return;o5Render('next');scheduleO5(5200);},delay);
+}
+const o5Observer=new IntersectionObserver((entries)=>{
+  const entry=entries[0];o5Visible=entry.isIntersecting;
+  if(o5Visible&&!o5Started){o5Started=true;scheduleO5(11000);}
+  else if(o5Visible)scheduleO5(5200);
+  else clearTimeout(o5Interval);
+},{threshold:0.35});
+o5Observer.observe(stage5);
+
+function o5ManualMove(index){
+  const n=12,target=(index+n)%n;if(o5Animating||target===o5i)return;
+  const forward=(target-o5i+n)%n;
+  const direction=forward===1?'next':forward===n-1?'prev':'next';
+  o5Render(direction);if(o5Visible)scheduleO5(5200);
+}
+document.querySelector('.o5-prev').onclick=()=>o5Render('prev');
+document.querySelector('.o5-next').onclick=()=>o5Render('next');
+dots5.forEach((d,i)=>d.onclick=()=>o5ManualMove(i));
+</script>
+
+
+<script>
+(function(){
+  const stage=document.querySelector('.o5-stage');
+  if(!stage)return;
+  let startX=0;
+  stage.addEventListener('touchstart',e=>{startX=e.changedTouches[0].clientX},{passive:true});
+  stage.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>45){
+      const b=stage.querySelector(dx<0?'.o5-next':'.o5-prev');
+      if(b)b.click();
+    }
+  },{passive:true});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft')stage.querySelector('.o5-prev')?.click();
+    if(e.key==='ArrowRight')stage.querySelector('.o5-next')?.click();
+  });
+})();
+</script>
+
+</body>
+</html>
