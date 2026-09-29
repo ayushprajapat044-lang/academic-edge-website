@@ -4,6 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- FIREBASE FIRESTORE -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBSu0_0Ap70fw9U65K0gUGOT6H2LKffIYm",
+    authDomain: "academic-edge-643b9.firebaseapp.com",
+    projectId: "academic-edge-643b9",
+    storageBucket: "academic-edge-643b9.firebasestorage.app",
+    messagingSenderId: "169625652131",
+    appId: "1:169625652131:web:8e028b965fe37218ade816",
+    measurementId: "G-574KKLMRE"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.academicEdgeFirebase = {
+    db,
+    collection,
+    addDoc,
+    serverTimestamp
+  };
+</script>
+
 <title>Academic Edge — Your Academic Life, Elevated</title>
 
 <style>
@@ -658,36 +689,36 @@ body{
     line-height:1.6;
 }
 
-/* ================= INTERACTIVE REVIEWS & RATINGS ================= */
+/* ================= SWIPEABLE REVIEWS & RATINGS ================= */
 
 .reviews-container{
-    max-width:1100px;
+    max-width:1150px;
     margin:0 auto;
     display:flex;
     flex-direction:column;
-    gap:45px;
+    gap:40px;
 }
 
 .review-form-card{
     background:white;
     border:1px solid #e4e9f2;
     border-radius:26px;
-    padding:35px;
+    padding:32px 35px;
     box-shadow:0 15px 40px rgba(25,65,140,.04);
 }
 
 .review-form-header{
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 .review-form-header h3{
     font-family:"Manrope";
-    font-size:22px;
+    font-size:21px;
     color:#071126;
 }
 
 .review-form-header p{
-    font-size:14px;
+    font-size:13.5px;
     color:#65728a;
     margin-top:4px;
 }
@@ -696,7 +727,12 @@ body{
     display:flex;
     align-items:center;
     gap:12px;
-    margin-bottom:20px;
+    margin-bottom:18px;
+    background:#f6f9ff;
+    padding:12px 18px;
+    border-radius:14px;
+    border:1px solid #e2ecfb;
+    width:fit-content;
 }
 
 .rating-select-box span{
@@ -717,16 +753,20 @@ body{
 }
 
 .star-rating label{
-    font-size:26px;
+    font-size:24px;
     color:#cbd5e1;
     cursor:pointer;
-    transition:color .2s ease;
+    transition:color .2s ease, transform .2s ease;
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label,
 .star-rating input:checked ~ label{
     color:#f59e0b;
+}
+
+.star-rating label:active{
+    transform:scale(1.2);
 }
 
 .review-form-grid{
@@ -742,25 +782,32 @@ body{
 .review-input-group{
     display:flex;
     flex-direction:column;
-    gap:7px;
+    gap:6px;
 }
 
 .review-input-group label{
-    font-size:13px;
+    font-size:12.5px;
     font-weight:700;
     color:#1d2940;
     font-family:"Manrope",sans-serif;
 }
 
+.review-input-group label span{
+    font-weight:500;
+    color:#8c98ac;
+    font-size:11px;
+    margin-left:4px;
+}
+
 .review-input-group input,
 .review-input-group textarea{
     width:100%;
-    padding:13px 15px;
+    padding:12px 15px;
     border:1px solid #dce4f2;
     background:#f8faff;
     border-radius:14px;
     font-family:inherit;
-    font-size:14px;
+    font-size:13.5px;
     color:#071126;
     outline:none;
     transition:border-color .25s ease, box-shadow .25s ease;
@@ -774,7 +821,7 @@ body{
 }
 
 .review-input-group textarea{
-    min-height:95px;
+    min-height:85px;
     resize:vertical;
 }
 
@@ -797,39 +844,92 @@ body{
     box-shadow:0 15px 30px rgba(36,103,238,.28);
 }
 
-.reviews-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
-    gap:25px;
+/* User Already Submitted Card State */
+.review-submitted-banner{
+    display:none;
+    text-align:center;
+    padding:35px 25px;
+    background:linear-gradient(135deg,#f4f8ff,#eaf1ff);
+    border:1px solid #d6e4fc;
+    border-radius:24px;
+    animation:fadeInReview .4s ease-out;
+}
+.review-submitted-banner .badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:48px;
+    height:48px;
+    background:#2467ee;
+    color:white;
+    border-radius:50%;
+    font-size:22px;
+    margin-bottom:12px;
+    box-shadow:0 10px 24px rgba(36,103,238,.25);
+}
+.review-submitted-banner h4{
+    font-family:"Manrope";
+    font-size:19px;
+    color:#071126;
+}
+.review-submitted-banner p{
+    font-size:13.5px;
+    color:#65728a;
+    margin-top:6px;
+}
+
+/* Horizontal Swipeable Track */
+.reviews-wrapper{
+    position:relative;
+    width:100%;
+}
+
+.reviews-carousel-track{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    padding:10px 5px 25px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+}
+.reviews-carousel-track::-webkit-scrollbar{
+    display:none;
 }
 
 .reviews-empty{
-    grid-column:1 / -1;
+    min-width:100%;
     text-align:center;
-    padding:50px 20px;
+    padding:45px 20px;
     background:white;
     border:1px dashed #dce4f2;
     border-radius:24px;
     color:#8993a6;
-    font-size:15px;
+    font-size:14.5px;
 }
-
 .reviews-empty span{
     display:block;
     font-size:32px;
-    margin-bottom:10px;
+    margin-bottom:8px;
 }
 
 .review-card{
+    flex:0 0 340px;
+    scroll-snap-align:start;
     background:white;
     border:1px solid #e4e9f2;
     border-radius:22px;
-    padding:28px;
+    padding:26px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    box-shadow:0 10px 30px rgba(25,65,140,.03);
+    box-shadow:0 12px 35px rgba(25,65,140,.04);
+    transition:transform .3s ease, box-shadow .3s ease;
     animation:fadeInReview .4s ease-out;
+}
+.review-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 45px rgba(25,65,140,.08);
 }
 
 @keyframes fadeInReview{
@@ -837,48 +937,80 @@ body{
     to{opacity:1; transform:translateY(0);}
 }
 
+.review-card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
 .review-stars{
     color:#f59e0b;
     font-size:15px;
-    margin-bottom:12px;
     letter-spacing:2px;
+}
+
+.review-verified-pill{
+    font-size:10px;
+    font-weight:700;
+    color:#15803d;
+    background:#eaf8ef;
+    padding:4px 8px;
+    border-radius:100px;
 }
 
 .review-text{
     color:#334155;
-    font-size:15px;
-    line-height:1.7;
+    font-size:14.5px;
+    line-height:1.65;
     margin-bottom:20px;
+    font-style:italic;
 }
 
 .review-author{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:12px;
+    border-top:1px solid #f0f4fa;
+    padding-top:14px;
 }
 
 .review-avatar{
-    width:42px;
-    height:42px;
+    width:38px;
+    height:38px;
     border-radius:50%;
-    background:#2467ee;
+    background:linear-gradient(135deg,#2467ee,#1449b5);
     color:white;
     display:grid;
     place-items:center;
     font-weight:700;
-    font-size:14px;
+    font-size:13px;
     flex-shrink:0;
+    box-shadow:0 6px 16px rgba(36,103,238,.25);
 }
 
 .review-info strong{
     display:block;
     font-family:"Manrope";
-    font-size:15px;
+    font-size:14.5px;
+    color:#071126;
 }
 
 .review-info span{
     color:#8993a6;
-    font-size:13px;
+    font-size:12px;
+}
+
+.swipe-hint{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+    color:#8895ab;
+    font-size:11.5px;
+    font-weight:600;
+    margin-top:-25px;
+    padding-right:6px;
 }
 
 /* ================= FAQ ACCORDION ================= */
@@ -1197,14 +1329,15 @@ body{
 
 @media(max-width:760px){
     .review-form-card{
-        padding:24px 18px;
+        padding:22px 18px;
         border-radius:20px;
     }
     .review-form-grid{
         grid-template-columns:1fr;
     }
-    .reviews-grid{
-        grid-template-columns:1fr!important;
+    .review-card{
+        flex:0 0 280px;
+        padding:20px;
     }
     .feedback-card{
         padding:26px 20px;
@@ -1611,7 +1744,6 @@ button{font:inherit}
   .dynamic-island{width:60px;height:16px}
   .app{padding:0}
 
-  /* Non-overlapping, separated floating badges */
   .float-card{
     padding:10px 13px !important;
     border-radius:15px !important;
@@ -1787,7 +1919,7 @@ button{font:inherit}
         <a href="#faq" data-nav="faq">FAQ</a>
     </div>
 
-    <a href="https://github.com/ayushprajapat044-lang/ayush-editz-portfolioo/releases/download/v1.0.6/AcademicEdge.apk"
+     <a href="https://github.com/ayushprajapat044-lang/ayush-editz-portfolioo/releases/download/v1.0.6/AcademicEdge.apk"
    class="nav-btn"
    download>
    Get the App →
@@ -1986,23 +2118,25 @@ button{font:inherit}
     </div>
 </section>
 
-<!-- REVIEWS SECTION: LIVE & INTERACTIVE -->
+<!-- REVIEWS SECTION: LIVE, SWIPEABLE & ANTI-SPAM -->
 <section class="section-container" id="reviews">
     <div class="section-header">
         <div class="eyebrow"><span class="eyebrow-dot"></span>Student Reviews</div>
         <h2>Real experiences from verified students</h2>
-        <p>Academic Edge is shaped by student voices. Leave your rating or see what others say.</p>
+        <p>Academic Edge is shaped by student voices. Swipe to read what fellow college students say.</p>
     </div>
 
     <div class="reviews-container">
-        <div class="review-form-card">
+        <!-- WRITE A REVIEW FORM -->
+        <div class="review-form-card" id="reviewFormCard">
             <div class="review-form-header">
                 <h3>Rate your experience</h3>
-                <p>Are you using Academic Edge? Share your feedback with college peers.</p>
+                <p>Are you using Academic Edge? Select your rating below to support fellow students.</p>
             </div>
+
             <form id="studentReviewForm">
                 <div class="rating-select-box">
-                    <span>Your Rating:</span>
+                    <span>Select Stars:</span>
                     <div class="star-rating">
                         <input type="radio" id="star5" name="userRating" value="5" required><label for="star5" title="5 stars">★</label>
                         <input type="radio" id="star4" name="userRating" value="4"><label for="star4" title="4 stars">★</label>
@@ -2014,24 +2148,35 @@ button{font:inherit}
 
                 <div class="review-form-grid">
                     <div class="review-input-group">
-                        <label for="revAuthor">Full Name</label>
-                        <input type="text" id="revAuthor" placeholder="e.g. Rahul Sharma" required>
+                        <label for="revAuthor">Full Name <span>(Optional)</span></label>
+                        <input type="text" id="revAuthor" placeholder="e.g. Rahul Sharma">
                     </div>
                     <div class="review-input-group">
-                        <label for="revCourse">Course / Branch</label>
-                        <input type="text" id="revCourse" placeholder="e.g. B.Tech CSE, 3rd Sem" required>
+                        <label for="revCourse">Course / Year <span>(Optional)</span></label>
+                        <input type="text" id="revCourse" placeholder="e.g. B.Tech CSE, 3rd Sem">
                     </div>
                     <div class="review-input-group full">
-                        <label for="revComment">Your Review</label>
-                        <textarea id="revComment" placeholder="How has Academic Edge helped your college study schedule?" required></textarea>
+                        <label for="revComment">Your Review <span>(Optional)</span></label>
+                        <textarea id="revComment" placeholder="Share a few words on how Academic Edge elevated your college life..."></textarea>
                     </div>
-                    <button type="submit" class="review-submit-btn">Post Student Review →</button>
+                    <button type="submit" class="review-submit-btn">Submit Rating →</button>
                 </div>
             </form>
         </div>
 
-        <div class="reviews-grid" id="reviewsGrid">
-            <!-- Dynamic reviews loaded via JavaScript -->
+        <!-- USER ALREADY SUBMITTED CARD BANNER -->
+        <div class="review-submitted-banner" id="reviewSubmittedBanner">
+            <div class="badge">✓</div>
+            <h4>Thank you for your review!</h4>
+            <p>You have already submitted your student rating. We appreciate your honest feedback!</p>
+        </div>
+
+        <!-- HORIZONTAL SWIPEABLE REVIEWS CAROUSEL -->
+        <div class="reviews-wrapper">
+            <div class="swipe-hint" id="swipeHint"><span>Swipe to browse</span> →</div>
+            <div class="reviews-carousel-track" id="reviewsTrack">
+                <!-- Dynamic cards populated via JavaScript -->
+            </div>
         </div>
     </div>
 </section>
@@ -2229,60 +2374,80 @@ button{font:inherit}
 })();
 </script>
 
-<!-- DYNAMIC REVIEWS & RATINGS SCRIPT -->
+<!-- REVIEWS & RATINGS LOGIC (SINGLE SUBMISSION, HORIZONTAL TRACK, OPTIONAL FIELDS) -->
 <script id="student-reviews-js">
 (function(){
   const form = document.getElementById('studentReviewForm');
-  const grid = document.getElementById('reviewsGrid');
-  if(!grid) return;
+  const track = document.getElementById('reviewsTrack');
+  const formCard = document.getElementById('reviewFormCard');
+  const banner = document.getElementById('reviewSubmittedBanner');
+  const hint = document.getElementById('swipeHint');
+
+  const STORAGE_KEY = 'academic_edge_reviews';
+  const USER_SUBMITTED_KEY = 'academic_edge_user_reviewed';
 
   function getStoredReviews(){
     try{
-      return JSON.parse(localStorage.getItem('academic_edge_reviews')) || [];
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     }catch(e){
       return [];
     }
   }
 
   function saveStoredReviews(revs){
-    localStorage.setItem('academic_edge_reviews', JSON.stringify(revs));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(revs));
+  }
+
+  function checkUserSubmittedState(){
+    const hasReviewed = localStorage.getItem(USER_SUBMITTED_KEY);
+    if(hasReviewed && formCard && banner){
+      formCard.style.display = 'none';
+      banner.style.display = 'block';
+    }
   }
 
   function renderReviews(){
     const revs = getStoredReviews();
-    grid.innerHTML = '';
+    track.innerHTML = '';
 
     if(revs.length === 0){
-      grid.innerHTML = `
+      if(hint) hint.style.display = 'none';
+      track.innerHTML = `
         <div class="reviews-empty">
           <span>🎓</span>
-          <strong>No student reviews yet</strong>
-          <p style="margin-top:6px; font-size:14px;">Be the first student to review Academic Edge and rate your experience!</p>
+          <strong style="color:#071126; font-size:16px;">No student ratings yet</strong>
+          <p style="margin-top:6px; color:#8993a6;">Be the first student to rate Academic Edge!</p>
         </div>
       `;
       return;
     }
 
+    if(hint) hint.style.display = revs.length > 1 ? 'flex' : 'none';
+
     revs.forEach(r => {
-      const initials = r.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+      const initials = (r.name || 'Student').split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      const commentText = r.comment ? `"${escapeHtml(r.comment)}"` : `"Rated ${r.rating} stars for Academic Edge."`;
 
       const card = document.createElement('div');
       card.className = 'review-card';
       card.innerHTML = `
         <div>
-          <div class="review-stars">${stars}</div>
-          <p class="review-text">"${escapeHtml(r.comment)}"</p>
+          <div class="review-card-top">
+            <div class="review-stars">${stars}</div>
+            <span class="review-verified-pill">✓ Verified</span>
+          </div>
+          <p class="review-text">${commentText}</p>
         </div>
         <div class="review-author">
           <div class="review-avatar">${initials}</div>
           <div class="review-info">
-            <strong>${escapeHtml(r.name)}</strong>
-            <span>${escapeHtml(r.course)}</span>
+            <strong>${escapeHtml(r.name || 'Verified Student')}</strong>
+            <span>${escapeHtml(r.course || 'College Student')}</span>
           </div>
         </div>
       `;
-      grid.appendChild(card);
+      track.appendChild(card);
     });
   }
 
@@ -2295,12 +2460,12 @@ button{font:inherit}
   if(form){
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const author = document.getElementById('revAuthor').value.trim();
-      const course = document.getElementById('revCourse').value.trim();
-      const comment = document.getElementById('revComment').value.trim();
       const ratingInput = form.querySelector('input[name="userRating"]:checked');
+      if(!ratingInput) return;
 
-      if(!author || !course || !comment || !ratingInput) return;
+      const author = document.getElementById('revAuthor').value.trim() || 'Verified Student';
+      const course = document.getElementById('revCourse').value.trim() || 'College Student';
+      const comment = document.getElementById('revComment').value.trim();
 
       const newReview = {
         name: author,
@@ -2313,29 +2478,88 @@ button{font:inherit}
       const existing = getStoredReviews();
       existing.unshift(newReview);
       saveStoredReviews(existing);
+
+      // Lock user from submitting multiple reviews
+      localStorage.setItem(USER_SUBMITTED_KEY, 'true');
+
       renderReviews();
-      form.reset();
+      checkUserSubmittedState();
+      
+      // Auto-scroll track to start
+      track.scrollTo({ left: 0, behavior: 'smooth' });
     });
   }
 
+  checkUserSubmittedState();
   renderReviews();
 })();
 </script>
 
 <!-- FEEDBACK FORM SCRIPT -->
+<!-- FEEDBACK FORM SCRIPT -->
 <script id="feedback-form-js">
 (function(){
   const form = document.getElementById('feedbackForm');
   const success = document.getElementById('feedbackSuccess');
+
   if(!form || !success) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    success.style.display = 'block';
-    form.reset();
-    setTimeout(() => {
-      success.style.display = 'none';
-    }, 4500);
+
+    const name = document.getElementById('fbName').value.trim();
+    const email = document.getElementById('fbEmail').value.trim();
+    const type = document.getElementById('fbType').value;
+    const message = document.getElementById('fbMessage').value.trim();
+
+    const submitBtn = form.querySelector('.feedback-btn');
+
+    if(name.length < 2 || message.length < 10){
+      alert('Please enter your name and a little more feedback.');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const {
+        db,
+        collection,
+        addDoc,
+        serverTimestamp
+      } = window.academicEdgeFirebase;
+
+      await addDoc(collection(db, 'website_feedback'), {
+        name,
+        email,
+        type,
+        message,
+        page: window.location.href,
+        userAgent: navigator.userAgent,
+        createdAt: serverTimestamp()
+      });
+
+      success.textContent = 'Thank you! Your feedback has been received.';
+      success.style.display = 'block';
+
+      form.reset();
+
+      setTimeout(() => {
+        success.style.display = 'none';
+      }, 4500);
+
+    } catch(error) {
+      console.error('Feedback error:', error);
+
+      success.textContent =
+        'Something went wrong. Please try again.';
+
+      success.style.display = 'block';
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Feedback →';
   });
 })();
 </script>
