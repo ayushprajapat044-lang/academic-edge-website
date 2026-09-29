@@ -80,7 +80,8 @@ button{cursor:pointer}
 }
 .primary:disabled{opacity:.6;cursor:not-allowed}
 .auth-error{
-  color:var(--red);font-size:13px;line-height:1.5;margin-top:14px;
+  color:var(--red);font-size:13px;line-height:1.55;margin-top:14px;
+  word-break:break-word;
 }
 .login-note{font-size:12px;color:#8a94a5;margin-top:18px;line-height:1.5}
 
@@ -446,8 +447,14 @@ loginForm.addEventListener("submit", async e=>{
       document.getElementById("loginPassword").value
     );
   }catch(error){
-    console.error(error);
-    showLoginError("Sign-in failed. Check your email and password.");
+    console.error("Academic Edge login error:", error);
+
+    const code = error?.code || "unknown-error";
+    const message = error?.message || "Unknown Firebase authentication error.";
+
+    showLoginError(
+      `Firebase error: ${code}. ${message}`
+    );
   }finally{
     loginBtn.disabled = false;
     loginBtn.textContent = "Sign in";
