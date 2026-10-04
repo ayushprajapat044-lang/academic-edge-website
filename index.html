@@ -1885,7 +1885,15 @@ button{font:inherit}
 .compact-card small{display:none !important;}
 .compact-phone-wrap{z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
 .compact-phone{width:255px;height:430px;padding:7px;border-radius:34px;background:linear-gradient(145deg,#17233d,#091226 58%,#050b17);border:1px solid rgba(255,255,255,.28);box-shadow:0 30px 55px rgba(8,26,65,.28),0 8px 18px rgba(8,26,65,.16);overflow:hidden;touch-action:pan-y;user-select:none}
-.compact-phone img{width:100%;height:100%;display:block;object-fit:cover;object-position:top;border-radius:27px;transition:opacity .18s ease,transform .18s ease}.compact-phone.changing img{opacity:.2;transform:scale(.985)}
+.compact-phone img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:top;
+  border-radius:27px;
+  transition:opacity .22s ease,transform .22s cubic-bezier(.22,.8,.24,1);
+}
 .compact-caption{text-align:center;margin-top:13px}.compact-caption span{font-size:10px;color:#2d6be8;font-weight:800;letter-spacing:.08em;margin-right:7px}.compact-caption strong{font-size:15px;color:#132139}.compact-caption small{display:block;color:#8995a8;font-size:11px;margin-top:3px}
 .compact-dots{display:flex;justify-content:center;gap:6px;margin-top:20px}.compact-dot{width:7px;height:7px;border:0;padding:0;border-radius:99px;background:#c6d0df;cursor:pointer;transition:all .2s ease}.compact-dot.active{width:22px;background:#2d6be8}
 
@@ -2642,26 +2650,34 @@ function go(n){
   if(n===current)return;
 
   busy=true;
-  current=n;
+  phone.classList.add('changing');
 
-  img.src=data[n].img;
-  img.alt='Academic Edge '+data[n].title+' screen';
+  setTimeout(()=>{
+    current=n;
 
-  document.getElementById('compactNum').textContent=
-    String(n+1).padStart(2,'0');
+    img.src=data[n].img;
+    img.alt='Academic Edge '+data[n].title+' screen';
 
-  document.getElementById('compactTitle').textContent=
-    data[n].title;
+    document.getElementById('compactNum').textContent =
+      String(n+1).padStart(2,'0');
 
-  document.getElementById('compactMeta').textContent=
-    data[n].meta;
+    document.getElementById('compactTitle').textContent =
+      data[n].title;
 
-  render();
+    document.getElementById('compactMeta').textContent =
+      data[n].meta;
 
-  requestAnimationFrame(()=>{
-    phone.classList.remove('changing');
-    busy=false;
-  });
+    render();
+
+    requestAnimationFrame(()=>{
+      phone.classList.remove('changing');
+
+      setTimeout(()=>{
+        busy=false;
+      },80);
+    });
+
+  },60);
 }
 stage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];startX=t.clientX;startY=t.clientY},{passive:true});
 stage.addEventListener('touchend',e=>{const t=e.changedTouches[0],dx=t.clientX-startX,dy=t.clientY-startY;if(Math.abs(dx)>35&&Math.abs(dx)>Math.abs(dy)*1.15)go(current+(dx<0?1:-1))},{passive:true});
